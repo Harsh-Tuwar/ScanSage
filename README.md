@@ -1,1 +1,1 @@
-# NutriNinja
+# ScanSage
