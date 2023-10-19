@@ -14,22 +14,21 @@ export const UserProvider = ({ children }: PropsWithChildren) => {
 	const [initialized, setInitialized] = useState<boolean>(false);
 
 	useEffect(() => {
-		const subscriber = onAuthStateChanged(FIREBASE_AUTH, (user) => {
-			setUser(user);
+		onAuthStateChanged(FIREBASE_AUTH, (fbUser) => {
+			console.log('AUTHENTICATED: ', fbUser && fbUser.email);
+			setUser(fbUser);
 			setInitialized(true);
 		});
-
-		return subscriber;
 	}, []);
 
-	return (
-		<UserContext.Provider value={{
-			user,
-			initialized
-		}}>
-			{children}
-		</UserContext.Provider>
-	);
+	const value = {
+		user,
+		initialized,
+	};
+
+	return <UserContext.Provider value={value}>
+		{children}
+	</UserContext.Provider>;
 };
 
 export const useUser = () => useContext(UserContext);
