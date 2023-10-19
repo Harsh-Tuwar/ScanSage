@@ -1,14 +1,24 @@
 import { View, Text, StyleSheet, KeyboardAvoidingView } from "react-native";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Button, Portal, Snackbar, TextInput } from 'react-native-paper';
-import { SNACK_DURATION } from '../../constants';
-import * as fbAuth from '../../firebase/auth';
+import { SNACK_DURATION } from '../constants';
+import * as fbAuth from '../firebase/auth';
+import { Redirect, useRouter } from 'expo-router';
+import { useUser } from '../context/UserContext';
+import CenterLoader from '../components/CenterLoader';
 
-const Login = () => {
-	const [email, setEmail] = useState('');
-	const [password, setPassword] = useState('');
+const LoginPages = () => {
+	const { user, initialized } = useUser();
+	const router = useRouter();
+	const [email, setEmail] = useState('wishw244@gmail.com');
+	const [password, setPassword] = useState('123456789');
 	const [showPassword, setShowPassword] = useState(true);
 	const [snackObj, setSnackObj] = useState({ visible: false, message: '' });
+	const [loadingAction, setLoadingAction] = useState(false);
+
+	if (initialized && user) {
+		return <Redirect href={'/(app)'} />
+	}
 
 	const handleLoginPress = async () => {
 		if (!email || !password) {
@@ -20,11 +30,17 @@ const Login = () => {
 			return;
 		}
 
+		setLoadingAction(true);
 		await fbAuth.login(email, password);
+		setLoadingAction(false);
+	}
+
+	if (!initialized || loadingAction) {
+		return <CenterLoader />;
 	}
 
 	return (
-		<View style={styles.centered}> (
+		<View style={styles.centered}>
 			<KeyboardAvoidingView behavior='padding'>
 				<Text style={styles.title}>Login</Text>
 				<TextInput
@@ -45,9 +61,19 @@ const Login = () => {
 					keyboardType='visible-password'
 					onChangeText={text => setPassword(text)}
 				/>
-				<Button mode='contained' style={{ marginTop: 5 }} onPress={handleLoginPress}>Login</Button>
+				<Button
+					mode='contained'
+					style={{ marginTop: 5 }}
+					onPress={handleLoginPress}
+				>Login</Button>
+				<Button
+					mode='text'
+					style={{ marginTop: 5 }}
+					onPress={() => {
+						router.push('/register');
+					}}
+				>Don't have an account? Register</Button>
 			</KeyboardAvoidingView>
-			)
 			<Portal>
 				<Snackbar
 					visible={snackObj.visible}
@@ -61,7 +87,7 @@ const Login = () => {
 			</Portal>
 		</View>
 	);
-};
+}
 
 const styles = StyleSheet.create({
 	centered: {
@@ -80,4 +106,4 @@ const styles = StyleSheet.create({
 	},
 });
 
-export default Login;
+export default LoginPages;
