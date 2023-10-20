@@ -17,7 +17,7 @@ const LoginPages = () => {
 	const [loadingAction, setLoadingAction] = useState(false);
 
 	if (initialized && user) {
-		return <Redirect href={'/(app)'} />
+		return <Redirect href={'/(app)/scan'} />
 	}
 
 	const handleLoginPress = async () => {
