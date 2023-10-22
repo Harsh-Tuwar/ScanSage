@@ -9,11 +9,11 @@ const StackLayout = () => {
 	return (
 		<UserProvider>
 			<PaperProvider>
-				<Stack screenOptions={{ headerShown: false }} initialRouteName='index'>
-					<Stack.Screen name="index"/>
+				<Stack screenOptions={{ headerShown: false, animation: 'fade' }} initialRouteName='index'>
+					<Stack.Screen name="index" />
 					<Stack.Screen
 						name="register"
-						options={{ 
+						options={{
 							headerTitle: 'Register',
 							headerRight: () => <Button title='open' onPress={() => {
 								router.push('/modal');

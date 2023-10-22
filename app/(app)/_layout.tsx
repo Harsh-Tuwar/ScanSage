@@ -1,5 +1,6 @@
 import React from 'react';
 import { Tabs } from 'expo-router';
+import { View } from 'react-native';
 import { FontAwesome5 } from '@expo/vector-icons';
 
 const AppLayout = () => {
@@ -20,7 +21,7 @@ const AppLayout = () => {
 			<Tabs.Screen
 				name='recent-scans'
 				options={{
-					tabBarIcon: ({ color, size, focused }) => <FontAwesome5 name="history" size={size}  color={color} />
+					tabBarIcon: ({ color, size, focused }) => <FontAwesome5 name="history" size={size} color={color} />
 				}}
 			/>
 			<Tabs.Screen
@@ -30,14 +31,16 @@ const AppLayout = () => {
 						paddingBottom: 100
 					},
 					tabBarIcon: ({ color, size, focused }) => {
-						return <FontAwesome5 name="barcode" size={size} color={color} />
+						return <View>
+							<FontAwesome5 name="barcode" size={size} color={color} />
+						</View>
 					}
 				}}
 			/>
 			<Tabs.Screen
 				name='profile'
 				options={{
-					tabBarIcon: ({ color, size, focused }) => <FontAwesome5 name="user" size={size} color={color} />
+					tabBarIcon: ({ color, size }) => <FontAwesome5 name="user" size={size} color={color} />
 				}}
 			/>
 		</Tabs>

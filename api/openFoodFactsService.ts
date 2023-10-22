@@ -11,7 +11,7 @@ export const getProductData = async (barcode: string) => {
 
 	const productResponse = await axios.get(`${API_BASE_URL}/${barcode}.json`);
 
-	if (productResponse.data) {
+	if (productResponse.data && productResponse.data.status === 1) {
 		product = _rawProductToProduct(productResponse.data);
 	}
 

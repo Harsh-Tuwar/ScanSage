@@ -1,5 +1,5 @@
 import { View, Text, StyleSheet, KeyboardAvoidingView } from "react-native";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { Button, Portal, Snackbar, TextInput } from 'react-native-paper';
 import { SNACK_DURATION } from '../constants';
 import * as fbAuth from '../firebase/auth';
