@@ -1,29 +1,46 @@
 import React from 'react';
 import { Tabs } from 'expo-router';
+import { View } from 'react-native';
 import { FontAwesome5 } from '@expo/vector-icons';
 
 const AppLayout = () => {
 	return (
 		<Tabs
-			screenOptions={{ 
-				headerShown: false
+			initialRouteName='scan'
+			screenOptions={{
+				headerShown: false,
+				tabBarShowLabel: false,
+				tabBarStyle: {
+					marginVertical: 25,
+					marginHorizontal: 15,
+					borderRadius: 50,
+					position: 'absolute'
+				},
 			}}
-			initialRouteName='index'
 		>
 			<Tabs.Screen
-				name='index'
+				name='recent-scans'
 				options={{
-					tabBarLabel: 'List',
-					headerTitle: 'Home Screen',
-					tabBarIcon: ({ color, size }) => <FontAwesome5 name="home" size={size} color={color} />
+					tabBarIcon: ({ color, size, focused }) => <FontAwesome5 name="history" size={size} color={color} />
 				}}
 			/>
 			<Tabs.Screen
-				name='settings'
+				name='scan'
 				options={{
-					tabBarLabel: 'List',
-					headerTitle: 'Settings',
-					tabBarIcon: ({ color, size }) => <FontAwesome5 name="cog" size={size} color={color} />
+					headerBackgroundContainerStyle: {
+						paddingBottom: 100
+					},
+					tabBarIcon: ({ color, size, focused }) => {
+						return <View>
+							<FontAwesome5 name="barcode" size={size} color={color} />
+						</View>
+					}
+				}}
+			/>
+			<Tabs.Screen
+				name='profile'
+				options={{
+					tabBarIcon: ({ color, size }) => <FontAwesome5 name="user" size={size} color={color} />
 				}}
 			/>
 		</Tabs>

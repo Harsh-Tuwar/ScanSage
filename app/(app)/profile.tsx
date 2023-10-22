@@ -4,10 +4,10 @@ import { Button } from 'react-native-paper';
 import { FIREBASE_AUTH } from '../../firebase/FBConfig';
 import { router } from 'expo-router';
 
-const Home = () => {
+const Profile = () => {
 	return (
 		<View style={{ flex: 1, justifyContent: 'center', margin: 5, alignItems: 'center' }}>
-			<Text>Home</Text>
+			<Text>Profile</Text>
 			<Button
 				icon="logout"
 				mode="contained"
@@ -23,4 +23,4 @@ const Home = () => {
 	);
 }
 
-export default Home;
+export default Profile;
