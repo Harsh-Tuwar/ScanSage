@@ -1,13 +1,13 @@
-import { View, Text, StyleSheet, KeyboardAvoidingView } from "react-native";
-import React, { useState } from "react";
 import { Button, Portal, Snackbar, TextInput } from 'react-native-paper';
-import { SNACK_DURATION } from '../constants';
-import * as fbAuth from '../firebase/auth';
 import { Redirect, useRouter } from 'expo-router';
+import { SNACK_DURATION } from '../constants';
 import { useUser } from '../context/UserContext';
+import { View, Text, StyleSheet, KeyboardAvoidingView } from "react-native";
+import * as fbAuth from '../firebase/auth';
 import CenterLoader from '../components/CenterLoader';
+import React, { useState } from "react";
 
-const LoginPages = () => {
+const LoginPage = () => {
 	const { user, initialized } = useUser();
 	const router = useRouter();
 	const [email, setEmail] = useState('wishw244@gmail.com');
@@ -99,11 +99,13 @@ const styles = StyleSheet.create({
 		marginBottom: 10,
 		fontSize: 18,
 		marginVertical: 2,
-		color: 'black'
+		color: 'black',
+		textAlign: 'center',
 	},
 	textfield: {
 		marginVertical: 5
 	},
 });
 
-export default LoginPages;
+export default LoginPage;
+
