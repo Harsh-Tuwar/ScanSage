@@ -9,6 +9,7 @@ const AppLayout = () => {
 			initialRouteName='scan'
 			screenOptions={{
 				headerShown: false,
+
 				tabBarShowLabel: false,
 				tabBarStyle: {
 					marginVertical: 25,
@@ -27,9 +28,6 @@ const AppLayout = () => {
 			<Tabs.Screen
 				name='scan'
 				options={{
-					headerBackgroundContainerStyle: {
-						paddingBottom: 100
-					},
 					tabBarIcon: ({ color, size, focused }) => {
 						return <View>
 							<FontAwesome5 name="barcode" size={size} color={color} />

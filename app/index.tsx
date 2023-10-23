@@ -7,7 +7,7 @@ import * as fbAuth from '../firebase/auth';
 import CenterLoader from '../components/CenterLoader';
 import React, { useState } from "react";
 
-const LoginPage = () => {
+const Login = () => {
 	const { user, initialized } = useUser();
 	const router = useRouter();
 	const [email, setEmail] = useState('wishw244@gmail.com');
@@ -99,13 +99,11 @@ const styles = StyleSheet.create({
 		marginBottom: 10,
 		fontSize: 18,
 		marginVertical: 2,
-		color: 'black',
-		textAlign: 'center',
+		color: 'black'
 	},
 	textfield: {
 		marginVertical: 5
 	},
 });
 
-export default LoginPage;
-
+export default Login;

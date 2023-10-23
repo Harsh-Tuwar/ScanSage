@@ -5,7 +5,7 @@ import { general } from '../../styles';
 const RecentScans = () => {
   return (
 	<View style={{ ...general.center }}>
-	  <Text style={general.font2}>Recent Scan scans</Text>
+	  <Text>Recent Scan scans</Text>
 	</View>
   )
 }

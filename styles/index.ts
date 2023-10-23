@@ -1,12 +1,6 @@
 import { StyleSheet } from 'react-native';
 
 export const general = StyleSheet.create({
-	font: {
-		fontFamily: 'Bubblegum Sans'
-	},
-	font2: {
-		fontFamily: 'Futura'
-	},
 	center: {
 		flex: 1,
 		justifyContent: 'center',
@@ -47,6 +41,5 @@ export const registerStyles = StyleSheet.create({
 		fontSize: 18,
 		marginVertical: 2,
 		color: 'black',
-		textAlign: 'center',
 	}
 });

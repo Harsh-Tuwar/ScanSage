@@ -26,9 +26,11 @@ export const UserProvider = ({ children }: PropsWithChildren) => {
 		initialized,
 	};
 
-	return <UserContext.Provider value={value}>
-		{children}
-	</UserContext.Provider>;
+	return (
+		<UserContext.Provider value={value}>
+			{children}
+		</UserContext.Provider>
+	);
 };
 
 export const useUser = () => useContext(UserContext);

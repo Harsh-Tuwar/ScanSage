@@ -45,7 +45,6 @@ const StackLayout = () => {
 		},
 	});
 
-
 	const theme = useTheme();
 
 	return (
@@ -59,16 +58,7 @@ const StackLayout = () => {
 							headerTitle: 'Register',
 							headerRight: () => <Button title='open' onPress={() => {
 								router.push('/modal');
-							}} />,
-						}}
-					/>
-					<Stack.Screen
-						name='modal'
-						options={{
-							presentation: 'modal',
-							headerLeft: () => {
-								return <Button title='Close' onPress={() => router.back()}></Button>
-							}
+							}} />
 						}}
 					/>
 				</Stack>
