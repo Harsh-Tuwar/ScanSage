@@ -1,10 +1,12 @@
 import { useFonts } from 'expo-font';
-import { Button } from 'react-native';
+import { Button, IconButton } from 'react-native-paper';
 import { Stack, useRouter } from 'expo-router'
 import { PaperProvider, configureFonts, useTheme } from 'react-native-paper'
 import { UserProvider } from '../context/UserContext';
 
 import * as SplashScreen from 'expo-splash-screen';
+import { FontAwesome5 } from '@expo/vector-icons';
+import { TouchableOpacity } from 'react-native-gesture-handler';
 
 SplashScreen.preventAutoHideAsync();
 
@@ -32,10 +34,6 @@ const StackLayout = () => {
 			...baseVariants.displayMedium,
 			fontFamily: 'PlaypenSans-Bold',
 		},
-		bold: {
-			...baseVariants.bodyMedium,
-			fontFamily: 'PlaypenSans-Bold',
-		},
 	} as const;
 
 	const fonts = configureFonts({
@@ -50,16 +48,23 @@ const StackLayout = () => {
 	return (
 		<UserProvider>
 			<PaperProvider theme={{ ...theme, fonts }}>
-				<Stack screenOptions={{ headerShown: false, animation: 'fade' }} initialRouteName='index'>
-					<Stack.Screen name="index" />
+				<Stack screenOptions={{ animation: 'fade', headerShown: false }} initialRouteName='index'>
+					<Stack.Screen name="index" options={{ headerShown: false }} />
+					<Stack.Screen name="food-prefs" options={{
+						headerShown: true,
+						headerTitle: 'Food Preferences',
+						headerBackTitle: 'Back',
+						headerLeft: () => (
+							<TouchableOpacity onPress={() => {
+								router.back();
+							}}>
+								<FontAwesome5 name="chevron-left" size={18} />
+							</TouchableOpacity>
+						)
+					}} />
 					<Stack.Screen
 						name="register"
-						options={{
-							headerTitle: 'Register',
-							headerRight: () => <Button title='open' onPress={() => {
-								router.push('/modal');
-							}} />
-						}}
+						options={{ headerShown: false }}
 					/>
 				</Stack>
 			</PaperProvider>

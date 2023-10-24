@@ -18,6 +18,16 @@ const Profile = () => {
 				icon="logout"
 				mode="contained"
 				style={{ ...helpers.mt30 }}
+				onPress={() => {
+					router.push('/food-prefs')
+				}}
+			>
+				Food Prefs Selection
+			</Button>
+			<Button
+				icon="logout"
+				mode="contained"
+				style={{ ...helpers.mt30 }}
 				onPress={async () => {
 					await signOut(FIREBASE_AUTH);
 					router.replace('/');

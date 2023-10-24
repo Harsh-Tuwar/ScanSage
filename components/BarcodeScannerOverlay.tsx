@@ -1,5 +1,5 @@
 import { Image } from 'expo-image';
-import retryImage from '../public/retry.png';
+import retryImage from '../assets/images/retry.png';
 import { PropsWithChildren, useEffect, useState } from 'react'
 import { View, Animated, StyleSheet, TouchableOpacity } from 'react-native'
 

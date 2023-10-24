@@ -70,7 +70,7 @@ const Register = () => {
 		}
 		
 		setLoading(false);
-		router.replace('/');
+		router.replace('/food-prefs');
 	}
 
 	if (loading) {

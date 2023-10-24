@@ -18,8 +18,23 @@ export const helpers = StyleSheet.create({
 	m5: {
 		margin: 5
 	},
+	m10: {
+		margin: 10
+	},
 	mx5: {
 		marginVertical: 5
+	},
+	mx10: {
+		marginVertical: 10
+	},
+	my10: {
+		marginHorizontal: 10
+	},
+	p5: {
+		padding: 5
+	},
+	p10: {
+		padding: 10
 	},
 	p20: {
 		padding: 20
@@ -41,5 +56,17 @@ export const registerStyles = StyleSheet.create({
 		fontSize: 18,
 		marginVertical: 2,
 		color: 'black',
+	}
+});
+
+export const foodPrefStyles = StyleSheet.create({
+	container: {
+		marginHorizontal: 10,
+		marginTop: -20,
+		height: '100%'
+	},
+	title: {
+		fontSize: 18,
+		fontWeight: 'bold'
 	}
 });

@@ -9,7 +9,6 @@ const AppLayout = () => {
 			initialRouteName='scan'
 			screenOptions={{
 				headerShown: false,
-
 				tabBarShowLabel: false,
 				tabBarStyle: {
 					marginVertical: 25,
@@ -38,6 +37,7 @@ const AppLayout = () => {
 			<Tabs.Screen
 				name='profile'
 				options={{
+					headerShown: false,
 					tabBarIcon: ({ color, size }) => <FontAwesome5 name="user" size={size} color={color} />
 				}}
 			/>
