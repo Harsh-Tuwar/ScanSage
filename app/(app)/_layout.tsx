@@ -15,22 +15,22 @@ const AppLayout = () => {
 			}}
 		>
 			<Tab.Screen
-				name="Scan"
-				component={Scan}
-				options={{
-					tabBarLabel: 'Scan',
-					tabBarIcon: ({ color }) => (
-						<MaterialCommunityIcons name="barcode-scan" color={color} size={26} />
-					),
-				}}
-			/>
-			<Tab.Screen
 				name="Recent Scans"
 				component={RecentScans}
 				options={{
 					tabBarLabel: 'Recent Scans',
 					tabBarIcon: ({ color }) => (
 						<MaterialCommunityIcons name="format-list-bulleted" color={color} size={26} />
+					),
+				}}
+			/>
+			<Tab.Screen
+				name="Scan"
+				component={Scan}
+				options={{
+					tabBarLabel: 'Scan',
+					tabBarIcon: ({ color }) => (
+						<MaterialCommunityIcons name="barcode-scan" color={color} size={26} />
 					),
 				}}
 			/>
