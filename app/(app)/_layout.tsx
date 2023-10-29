@@ -14,7 +14,7 @@ const AppLayout = () => {
 					marginVertical: 25,
 					marginHorizontal: 15,
 					borderRadius: 50,
-					position: 'absolute'
+					position: 'absolute',
 				},
 			}}
 		>

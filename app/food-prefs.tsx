@@ -1,13 +1,27 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Divider, Text, List } from 'react-native-paper';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { helpers, foodPrefStyles } from '../styles';
 import { ScrollView } from 'react-native-gesture-handler';
 import { Image } from 'expo-image';
 import foodPrefImg from '../assets/images/food-prefs.svg';
+
 import AllergensAccordian from '../components/AllergensAccordian';
+import NutritionalQualityAccordian from '../components/NutritionalQualityAccordian';
+import IngredientsAccordian from '../components/IngredientsAccordian';
+import FoodProcessingAccordian from '../components/FoodProcessingAccordian';
+import { useUser } from '../context/UserContext';
+import { router } from 'expo-router';
 
 const FoodPrefSelection = () => {
+	const { user } = useUser();
+
+	useEffect(() => {
+		if(!user) {
+			router.replace('/');
+		}
+	}, [user]);
+
 	return (
 		<SafeAreaView>
 			<ScrollView style={foodPrefStyles.container}>
@@ -15,12 +29,13 @@ const FoodPrefSelection = () => {
 				<Divider style={helpers.mx10} />
 				<Text >
 					Choose what information about food matters most to you, in order to rank food according to your
-					preferences, see the information you care about first, and get a compatibility summary. Those food 
-					preferences stay on your device, and are not associatedwith your Scan Sage Facts contributor account 
-					if you have one.
+					preferences, see the information you care about first, and get a compatibility summary.
 				</Text>
 				<List.AccordionGroup>
 					<AllergensAccordian />
+					<NutritionalQualityAccordian />
+					<IngredientsAccordian />
+					<FoodProcessingAccordian />
 				</List.AccordionGroup>
 			</ScrollView>
 		</SafeAreaView>

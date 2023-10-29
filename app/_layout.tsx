@@ -45,6 +45,10 @@ const StackLayout = () => {
 
 	const theme = useTheme();
 
+	if (!fontsLoaded && !fontError) {
+		return null;
+	}
+
 	return (
 		<UserProvider>
 			<PaperProvider theme={{ ...theme, fonts }}>
