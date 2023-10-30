@@ -21,7 +21,7 @@ const Profile = () => {
 	return (
 		<SafeAreaView style={{ ...helpers.m10 }}>
 			<PageTitle>Profile</PageTitle>
-			<ScrollView style={helpers.mb30}>
+			<ScrollView style={helpers.mb20}>
 				<List.Section>
 					<List.Subheader>My Account</List.Subheader>
 					<Divider bold />
@@ -35,7 +35,9 @@ const Profile = () => {
 				<List.Section>
 					<List.Subheader>Preferences</List.Subheader>
 					<Divider bold />
-					<TouchableOpacity onPress={() => router.push('/food-prefs')}>
+					<TouchableOpacity onPress={() => {
+						router.push('/food-prefs');
+					}}>
 						<List.Item title="Dietary Preferences" description="Choose what information about food matters most to you" left={() => <List.Icon icon="food-variant" />} />
 					</TouchableOpacity>
 					<TouchableOpacity onPress={() => console.log('show update theme modal')}>

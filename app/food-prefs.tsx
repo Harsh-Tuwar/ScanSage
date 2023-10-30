@@ -5,13 +5,14 @@ import { helpers, foodPrefStyles } from '../styles';
 import { ScrollView } from 'react-native-gesture-handler';
 import * as fbDb from '../firebase/db';
 
-import AllergensAccordian from '../components/AllergensAccordian';
 import NutritionalQualityAccordian from '../components/NutritionalQualityAccordian';
-import IngredientsAccordian from '../components/IngredientsAccordian';
 import FoodProcessingAccordian from '../components/FoodProcessingAccordian';
+import IngredientsAccordian from '../components/IngredientsAccordian';
+import AllergensAccordian from '../components/AllergensAccordian';
+import { router, useLocalSearchParams } from 'expo-router';
 import { useUser } from '../context/UserContext';
-import { router } from 'expo-router';
 import PageTitle from '../components/PageTitle';
+import { View } from 'react-native';
 
 interface PrefSelection {
 	allergens: {
@@ -87,6 +88,7 @@ const FoodPrefSelection = () => {
 	const { user, fbUser } = useUser();
 	const [snackObj, setSnackObj] = useState({ visible: false, msg: '' });
 	const [prefSelection, setPrefSelection] = useState(defaultSelection);
+	const { newUser } = useLocalSearchParams<{ newUser?: string }>();
 
 	useEffect(() => {
 		if (!user) {
@@ -137,10 +139,12 @@ const FoodPrefSelection = () => {
 		<SafeAreaView style={helpers.m10}>
 			<PageTitle>Food Prefs.</PageTitle>
 			<ScrollView style={foodPrefStyles.container}>
-				<Button onPress={resetPreferences} mode='text' icon='restart' style={{
-					...helpers.mx10,
-					justifyContent: 'flex-start'
-				}}>Reset Preferences</Button>
+				{!newUser && (
+					<Button onPress={resetPreferences} mode='text' icon='restart' style={{
+						...helpers.mx10,
+						justifyContent: 'flex-start'
+					}}>Reset Preferences</Button>
+				)}
 				<Text >
 					Choose what information about food matters most to you, in order to rank food according to your
 					preferences, see the information you care about first, and get a compatibility summary.
@@ -240,6 +244,33 @@ const FoodPrefSelection = () => {
 					{snackObj.msg}
 				</Snackbar>
 			</Portal>
+			<View style={foodPrefStyles.bottomBar}>
+				<View>
+					{!newUser && (
+						<Button
+							icon="chevron-left"
+							mode="text"
+							onPress={() => router.back()}
+							labelStyle={foodPrefStyles.bottomBarButtonLabel}
+						>
+							Back
+						</Button>
+					)}
+				</View>
+				<View>
+					{newUser && (
+						<Button
+							mode="text"
+							onPress={() => router.push('/(app)/recent-scans')}
+							labelStyle={{  ...foodPrefStyles.bottomBarButtonLabel, alignSelf: 'flex-end' }}
+							icon="chevron-right"
+							contentStyle={{ flexDirection: 'row-reverse' }}
+						>
+							Next
+						</Button>
+					)}
+				</View>
+			</View>
 		</SafeAreaView>
 	)
 }

@@ -8,7 +8,7 @@ import CenterLoader from '../components/CenterLoader';
 import React, { useState } from "react";
 
 const Login = () => {
-	const { user, initialized } = useUser();
+	const { user, initialized, fbInitialized } = useUser();
 	const router = useRouter();
 	const [email, setEmail] = useState('haha@99.ca');
 	const [password, setPassword] = useState('HarshTuwar@12');
@@ -16,7 +16,7 @@ const Login = () => {
 	const [snackObj, setSnackObj] = useState({ visible: false, message: '' });
 	const [loadingAction, setLoadingAction] = useState(false);
 
-	if (initialized && user) {
+	if (initialized && fbInitialized && user) {
 		return <Redirect href={'/(app)/scan'} />
 	}
 
@@ -43,7 +43,7 @@ const Login = () => {
 		setLoadingAction(false);
 	}
 
-	if (!initialized || loadingAction) {
+	if (!initialized || loadingAction || !fbInitialized) {
 		return <CenterLoader />;
 	}
 

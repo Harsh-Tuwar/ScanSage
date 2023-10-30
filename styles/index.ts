@@ -1,4 +1,7 @@
-import { StyleSheet } from 'react-native';
+import { Dimensions, StyleSheet } from 'react-native';
+
+export const SCREEN_WIDTH = Dimensions.get('screen').width;
+export const SCREEN_HEIGHT = Dimensions.get('screen').height;
 
 export const general = StyleSheet.create({
 	center: {
@@ -36,6 +39,9 @@ export const helpers = StyleSheet.create({
 	mb20: {
 		marginBottom: 10
 	},
+	pt15: {
+		paddingTop: 15
+	},
 	p10: {
 		padding: 10
 	},
@@ -70,5 +76,21 @@ export const foodPrefStyles = StyleSheet.create({
 	title: {
 		fontSize: 18,
 		fontWeight: 'bold'
+	},
+	bottomBar: {
+		bottom: 20,
+		height: 100,
+		width: SCREEN_WIDTH,
+		paddingVertical: 10,
+		position: 'absolute',
+		flexDirection: 'row',
+		paddingHorizontal: 10,
+		marginHorizontal: -10,
+		backgroundColor: 'tomato',
+		justifyContent: 'space-between'
+	},
+	bottomBarButtonLabel: {
+		color: 'black',
+		fontSize: 16
 	}
 });
