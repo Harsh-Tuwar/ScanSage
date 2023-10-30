@@ -10,12 +10,13 @@ const AppLayout = () => {
 	return (
 		<Tab.Navigator
 			initialRouteName='Scan'
+			shifting={true}
 			barStyle={{
 				backgroundColor: 'tomato'
 			}}
 		>
 			<Tab.Screen
-				name="Recent Scans"
+				name="RecentScans"
 				component={RecentScans}
 				options={{
 					tabBarLabel: 'Recent Scans',

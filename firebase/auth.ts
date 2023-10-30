@@ -10,9 +10,19 @@ export const login = async (email: string, password: string) => {
 		);
 
 		return user.user;
-	} catch (err) {
+	} catch (err: any) {
 		console.log('firebase/auth.ts/login Error:-', err);
-		return null;
+
+		const errCode = err.code;
+		let errorMsg = errCode;
+
+		if (errCode === 'auth/invalid-login-credentials') {
+			errorMsg = 'Email or password is incorrect!';
+		} else if (errCode === 'auth/too-many-requests') {
+			errorMsg = 'Your account is locked! You can immediately restore it by resetting your password!';
+		}
+
+		return errorMsg as string;
 	}
 }
 

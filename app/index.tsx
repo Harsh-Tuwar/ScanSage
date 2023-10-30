@@ -10,7 +10,7 @@ import React, { useState } from "react";
 const Login = () => {
 	const { user, initialized } = useUser();
 	const router = useRouter();
-	const [email, setEmail] = useState('wishw244@gmail.com');
+	const [email, setEmail] = useState('haha@99.ca');
 	const [password, setPassword] = useState('123456789');
 	const [showPassword, setShowPassword] = useState(true);
 	const [snackObj, setSnackObj] = useState({ visible: false, message: '' });
@@ -31,7 +31,15 @@ const Login = () => {
 		}
 
 		setLoadingAction(true);
-		await fbAuth.login(email, password);
+		const resp = await fbAuth.login(email, password);
+
+		if (typeof(resp) === 'string') {
+			setSnackObj({
+				visible: true,
+				message: resp
+			});
+		}
+
 		setLoadingAction(false);
 	}
 

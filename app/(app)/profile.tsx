@@ -1,6 +1,5 @@
 import { signOut } from 'firebase/auth';
-import { Text, List, MD3Colors, Divider } from 'react-native-paper';
-import { Button } from 'react-native-paper';
+import { Text, List, Divider, Card } from 'react-native-paper';
 import { FIREBASE_AUTH } from '../../firebase/FBConfig';
 import { router } from 'expo-router';
 import { helpers } from '../../styles';
@@ -22,9 +21,10 @@ const Profile = () => {
 	return (
 		<SafeAreaView style={{ ...helpers.m10 }}>
 			<PageTitle>Profile</PageTitle>
-			<ScrollView>
+			<ScrollView style={helpers.mb30}>
 				<List.Section>
 					<List.Subheader>My Account</List.Subheader>
+					<Divider bold />
 					<TouchableOpacity onPress={() => { console.log('show update email modal') }}>
 						<List.Item title="Update Email" description={user?.email} left={() => <List.Icon icon="account" />} />
 					</TouchableOpacity>
@@ -32,20 +32,20 @@ const Profile = () => {
 						<List.Item title="Update Password" description="*******" left={() => <List.Icon icon="lock-reset" />} />
 					</TouchableOpacity>
 				</List.Section>
-				<Divider />
 				<List.Section>
 					<List.Subheader>Preferences</List.Subheader>
-					<TouchableOpacity onPress={() => console.log('show update theme modal')}>
-						<List.Item title="Theme" description="Light" left={() => <List.Icon icon="theme-light-dark" />} />
-					</TouchableOpacity>
+					<Divider bold />
 					<TouchableOpacity onPress={() => router.push('/food-prefs')}>
 						<List.Item title="Dietary Preferences" description="Choose what information about food matters most to you" left={() => <List.Icon icon="food-variant" />} />
 					</TouchableOpacity>
+					<TouchableOpacity onPress={() => console.log('show update theme modal')}>
+						<List.Item title="Theme" description="Light" left={() => <List.Icon icon="theme-light-dark" />} />
+					</TouchableOpacity>
 				</List.Section>
-				<Divider />
 				<List.Section>
 					<List.Subheader>General</List.Subheader>
-					<TouchableOpacity onPress={() => {}}>
+					<Divider bold />
+					<TouchableOpacity onPress={() => { }}>
 						<List.Item title="Version" description={packageJson.version} left={() => <List.Icon icon="code-tags" />} />
 					</TouchableOpacity>
 					<TouchableOpacity onPress={logout}>

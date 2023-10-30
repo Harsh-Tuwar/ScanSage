@@ -33,6 +33,9 @@ export const helpers = StyleSheet.create({
 	p5: {
 		padding: 5
 	},
+	mb20: {
+		marginBottom: 10
+	},
 	p10: {
 		padding: 10
 	},
