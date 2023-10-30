@@ -1,13 +1,14 @@
-import { View, Text } from 'react-native'
 import React from 'react'
-import { general } from '../../styles';
+import { helpers } from '../../styles';
+import PageTitle from '../../components/PageTitle';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 const RecentScans = () => {
-  return (
-	<View style={{ ...general.center }}>
-	  <Text style={general.font2}>Recent Scan scans</Text>
-	</View>
-  )
+	return (
+		<SafeAreaView style={{ ...helpers.m10 }}>
+			<PageTitle>Recent Scans</PageTitle>
+		</SafeAreaView>
+	);
 }
 
 export default RecentScans;

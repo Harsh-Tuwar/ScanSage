@@ -1,16 +1,16 @@
-import { View, Text, StyleSheet, KeyboardAvoidingView } from "react-native";
-import React, { useState } from "react";
 import { Button, Portal, Snackbar, TextInput } from 'react-native-paper';
-import { SNACK_DURATION } from '../constants';
-import * as fbAuth from '../firebase/auth';
 import { Redirect, useRouter } from 'expo-router';
+import { SNACK_DURATION } from '../constants';
 import { useUser } from '../context/UserContext';
+import { View, Text, StyleSheet, KeyboardAvoidingView } from "react-native";
+import * as fbAuth from '../firebase/auth';
 import CenterLoader from '../components/CenterLoader';
+import React, { useState } from "react";
 
-const LoginPages = () => {
+const Login = () => {
 	const { user, initialized } = useUser();
 	const router = useRouter();
-	const [email, setEmail] = useState('wishw244@gmail.com');
+	const [email, setEmail] = useState('haha@99.ca');
 	const [password, setPassword] = useState('123456789');
 	const [showPassword, setShowPassword] = useState(true);
 	const [snackObj, setSnackObj] = useState({ visible: false, message: '' });
@@ -31,7 +31,15 @@ const LoginPages = () => {
 		}
 
 		setLoadingAction(true);
-		await fbAuth.login(email, password);
+		const resp = await fbAuth.login(email, password);
+
+		if (typeof(resp) === 'string') {
+			setSnackObj({
+				visible: true,
+				message: resp
+			});
+		}
+
 		setLoadingAction(false);
 	}
 
@@ -106,4 +114,4 @@ const styles = StyleSheet.create({
 	},
 });
 
-export default LoginPages;
+export default Login;

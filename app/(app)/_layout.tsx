@@ -1,50 +1,52 @@
-import React from 'react';
-import { Tabs } from 'expo-router';
-import { View } from 'react-native';
-import { FontAwesome5 } from '@expo/vector-icons';
+import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
+import { MaterialCommunityIcons } from '@expo/vector-icons';
+import Profile from './profile';
+import RecentScans from './recent-scans';
+import Scan from './scan';
+
+const Tab = createMaterialBottomTabNavigator();
 
 const AppLayout = () => {
 	return (
-		<Tabs
-			initialRouteName='scan'
-			screenOptions={{
-				headerShown: false,
-				tabBarShowLabel: false,
-				tabBarStyle: {
-					marginVertical: 25,
-					marginHorizontal: 15,
-					borderRadius: 50,
-					position: 'absolute'
-				},
+		<Tab.Navigator
+			initialRouteName='Scan'
+			shifting={true}
+			barStyle={{
+				backgroundColor: 'tomato'
 			}}
 		>
-			<Tabs.Screen
-				name='recent-scans'
+			<Tab.Screen
+				name="RecentScans"
+				component={RecentScans}
 				options={{
-					tabBarIcon: ({ color, size, focused }) => <FontAwesome5 name="history" size={size} color={color} />
+					tabBarLabel: 'Recent Scans',
+					tabBarIcon: ({ color }) => (
+						<MaterialCommunityIcons name="format-list-bulleted" color={color} size={26} />
+					),
 				}}
 			/>
-			<Tabs.Screen
-				name='scan'
+			<Tab.Screen
+				name="Scan"
+				component={Scan}
 				options={{
-					headerBackgroundContainerStyle: {
-						paddingBottom: 100
-					},
-					tabBarIcon: ({ color, size, focused }) => {
-						return <View>
-							<FontAwesome5 name="barcode" size={size} color={color} />
-						</View>
-					}
+					tabBarLabel: 'Scan',
+					tabBarIcon: ({ color }) => (
+						<MaterialCommunityIcons name="barcode-scan" color={color} size={26} />
+					),
 				}}
 			/>
-			<Tabs.Screen
-				name='profile'
+			<Tab.Screen
+				name="Profile"
+				component={Profile}
 				options={{
-					tabBarIcon: ({ color, size }) => <FontAwesome5 name="user" size={size} color={color} />
+					tabBarLabel: 'Profile',
+					tabBarIcon: ({ color }) => (
+						<MaterialCommunityIcons name="account" color={color} size={26} />
+					),
 				}}
 			/>
-		</Tabs>
+		</Tab.Navigator>
 	)
 }
 
-export default AppLayout
+export default AppLayout;
