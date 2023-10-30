@@ -17,8 +17,10 @@ const FoodPrefAccordianItem = ({
 		<View style={{ ...helpers.mx10 }}>
 			<Card mode='outlined'>
 				<Card.Content>
-					<List.Accordion title={title} id={id}>
-						{children}
+					<List.Accordion title={title} id={id} style={{ margin: -15 }}>
+						<View style={helpers.pt15}>
+							{children}
+						</View>
 					</List.Accordion>
 				</Card.Content>
 			</Card>

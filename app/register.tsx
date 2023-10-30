@@ -71,6 +71,7 @@ const Register = () => {
 		
 		setLoading(false);
 		router.replace('/food-prefs');
+		router.setParams({ newUser: 'true' });
 	}
 
 	if (loading) {
