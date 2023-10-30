@@ -11,7 +11,7 @@ const Login = () => {
 	const { user, initialized } = useUser();
 	const router = useRouter();
 	const [email, setEmail] = useState('haha@99.ca');
-	const [password, setPassword] = useState('123456789');
+	const [password, setPassword] = useState('HarshTuwar@12');
 	const [showPassword, setShowPassword] = useState(true);
 	const [snackObj, setSnackObj] = useState({ visible: false, message: '' });
 	const [loadingAction, setLoadingAction] = useState(false);
