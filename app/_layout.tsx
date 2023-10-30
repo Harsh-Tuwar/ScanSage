@@ -7,6 +7,7 @@ import { UserProvider } from '../context/UserContext';
 import * as SplashScreen from 'expo-splash-screen';
 import { FontAwesome5 } from '@expo/vector-icons';
 import { TouchableOpacity } from 'react-native-gesture-handler';
+import { View } from 'react-native';
 
 SplashScreen.preventAutoHideAsync();
 
@@ -53,23 +54,9 @@ const StackLayout = () => {
 		<UserProvider>
 			<PaperProvider theme={{ ...theme, fonts }}>
 				<Stack screenOptions={{ animation: 'fade', headerShown: false }} initialRouteName='index'>
-					<Stack.Screen name="index" options={{ headerShown: false }} />
-					<Stack.Screen name="food-prefs" options={{
-						headerShown: true,
-						headerTitle: 'Food Preferences',
-						headerBackTitle: 'Back',
-						headerLeft: () => (
-							<TouchableOpacity onPress={() => {
-								router.back();
-							}}>
-								<FontAwesome5 name="chevron-left" size={18} />
-							</TouchableOpacity>
-						)
-					}} />
-					<Stack.Screen
-						name="register"
-						options={{ headerShown: false }}
-					/>
+					<Stack.Screen name="index" />
+					<Stack.Screen name="food-prefs" />
+					<Stack.Screen name="register" />
 				</Stack>
 			</PaperProvider>
 		</UserProvider>
