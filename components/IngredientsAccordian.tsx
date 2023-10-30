@@ -1,13 +1,39 @@
-import React from 'react';
+import React, { PropsWithChildren } from 'react';
 import FoodPrefAccordianItem from './FoodPrefAccordianItem';
 import FoodPrefItem from './FoodPrefItem';
 
-const IngredientsAccordian = () => {
+interface IngredientsAccordianProps extends PropsWithChildren {
+	setIngredientSelection: (value: any) => void;
+	ingredients: {
+		vegan: string;
+		vegetarian: string;
+		palmOilFree: string;
+	};
+}
+
+const IngredientsAccordian = ({
+	ingredients,
+	setIngredientSelection
+}: IngredientsAccordianProps) => {
 	return (
 		<FoodPrefAccordianItem id={'3'} title='Ingredients'>
-			<FoodPrefItem title='Vegan' modalContent='To determine whether a product is vegan, we only rely on the list of ingredients.'/>
-			<FoodPrefItem title='Vegetarian' modalContent='To determine whether a product is vegetarian, we only rely on the list of ingredients.' />
-			<FoodPrefItem title='Palm oil free' />
+			<FoodPrefItem
+				title='Vegan'
+				modalContent='To determine whether a product is vegan, we only rely on the list of ingredients.'
+				selectedValue={ingredients.vegan}
+				setValue={(newValue) => { setIngredientSelection({ 'vegan': newValue }) }}
+			/>
+			<FoodPrefItem
+				title='Vegetarian'
+				modalContent='To determine whether a product is vegetarian, we only rely on the list of ingredients.'
+				selectedValue={ingredients.vegetarian}
+				setValue={(newValue) => { setIngredientSelection({ 'vegetarian': newValue }) }}
+			/>
+			<FoodPrefItem
+				title='Palm oil free'
+				selectedValue={ingredients.palmOilFree}
+				setValue={(newValue) => { setIngredientSelection({ 'palmOilFree': newValue }) }}
+			/>
 		</FoodPrefAccordianItem>
   	);
 }

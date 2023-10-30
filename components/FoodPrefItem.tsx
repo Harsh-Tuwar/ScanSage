@@ -5,11 +5,13 @@ import { Text, Divider, RadioButton, Portal, Modal, Icon, Button } from 'react-n
 import { TouchableOpacity } from 'react-native-gesture-handler';
 
 interface FoodPrepItemProps extends PropsWithChildren {
+	selectedValue: string;
 	title: string;
 	modalContent?: string;
+	setValue: (value: string) => void;
 }
 
-const FoodPrefItem = ({ title, modalContent }: FoodPrepItemProps) => {
+const FoodPrefItem = ({ title, modalContent, selectedValue, setValue }: FoodPrepItemProps) => {
 	const [showModal, setShowModal] = useState(false);
 
 	return (
@@ -21,11 +23,13 @@ const FoodPrefItem = ({ title, modalContent }: FoodPrepItemProps) => {
 				</TouchableOpacity>}
 			</View>
 			<Divider style={helpers.mx5} />
-			<RadioButton.Group onValueChange={value => { }} value={'2'}>
-				<RadioButton.Item label="Not Important" labelVariant='bodyMedium' value="1" />
-				<RadioButton.Item label="Important" labelVariant='bodyMedium' value="2" />
-				<RadioButton.Item label="Very Important" labelVariant='bodyMedium' value="3" />
-				<RadioButton.Item label="Mandatory" labelVariant='bodyMedium' value="4" />
+			<RadioButton.Group onValueChange={(newValue) => {
+				setValue(newValue);
+			}} value={selectedValue}>
+				<RadioButton.Item label="Not Important" labelVariant='bodyMedium' value="0" />
+				<RadioButton.Item label="Important" labelVariant='bodyMedium' value="1" />
+				<RadioButton.Item label="Very Important" labelVariant='bodyMedium' value="2" />
+				<RadioButton.Item label="Mandatory" labelVariant='bodyMedium' value="3" />
 			</RadioButton.Group>
 			<Portal>
 				<Modal

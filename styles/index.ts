@@ -65,8 +65,6 @@ export const registerStyles = StyleSheet.create({
 export const foodPrefStyles = StyleSheet.create({
 	container: {
 		marginHorizontal: 10,
-		marginTop: -20,
-		height: '100%'
 	},
 	title: {
 		fontSize: 18,
