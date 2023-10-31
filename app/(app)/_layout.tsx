@@ -1,8 +1,8 @@
-import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
-import { MaterialCommunityIcons } from '@expo/vector-icons';
-import Profile from './profile';
-import RecentScans from './recent-scans';
 import Scan from './scan';
+import Settings from './settings';
+import RecentScans from './recent-scans';
+import { MaterialCommunityIcons } from '@expo/vector-icons';
+import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
 
 const Tab = createMaterialBottomTabNavigator();
 
@@ -36,12 +36,12 @@ const AppLayout = () => {
 				}}
 			/>
 			<Tab.Screen
-				name="Profile"
-				component={Profile}
+				name="Settings"
+				component={Settings}
 				options={{
-					tabBarLabel: 'Profile',
+					tabBarLabel: 'Settings',
 					tabBarIcon: ({ color }) => (
-						<MaterialCommunityIcons name="account" color={color} size={26} />
+						<MaterialCommunityIcons name="cog" color={color} size={26} />
 					),
 				}}
 			/>

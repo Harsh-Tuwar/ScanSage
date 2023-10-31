@@ -1,8 +1,8 @@
 import { signOut } from 'firebase/auth';
-import { Text, List, Divider, Card } from 'react-native-paper';
+import { List, Divider } from 'react-native-paper';
 import { FIREBASE_AUTH } from '../../firebase/FBConfig';
 import { router } from 'expo-router';
-import { helpers } from '../../styles';
+import { SCREEN_HEIGHT, helpers } from '../../styles';
 import { useUser } from '../../context/UserContext';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import PageTitle from '../../components/PageTitle';
@@ -10,8 +10,8 @@ import { ScrollView } from 'react-native-gesture-handler';
 import { TouchableOpacity } from 'react-native';
 import packageJson from '../../package.json';
 
-const Profile = () => {
-	const { user } = useUser();
+const Settings = () => {
+	const { fbUser } = useUser();
 
 	const logout = async () => {
 		await signOut(FIREBASE_AUTH);
@@ -20,18 +20,8 @@ const Profile = () => {
 
 	return (
 		<SafeAreaView style={{ ...helpers.m10 }}>
-			<PageTitle>Profile</PageTitle>
-			<ScrollView style={helpers.mb20}>
-				<List.Section>
-					<List.Subheader>My Account</List.Subheader>
-					<Divider bold />
-					<TouchableOpacity onPress={() => { console.log('show update email modal') }}>
-						<List.Item title="Update Email" description={user?.email} left={() => <List.Icon icon="account" />} />
-					</TouchableOpacity>
-					<TouchableOpacity onPress={() => console.log('show update password modal')}>
-						<List.Item title="Update Password" description="*******" left={() => <List.Icon icon="lock-reset" />} />
-					</TouchableOpacity>
-				</List.Section>
+			<PageTitle>Settings</PageTitle>
+			<ScrollView style={{ ...helpers.mb20, height: SCREEN_HEIGHT }}>
 				<List.Section>
 					<List.Subheader>Preferences</List.Subheader>
 					<Divider bold />
@@ -47,6 +37,9 @@ const Profile = () => {
 				<List.Section>
 					<List.Subheader>General</List.Subheader>
 					<Divider bold />
+					<TouchableOpacity onPress={() => { console.log('wip')}}>
+						<List.Item title="Account" description={fbUser?.name ?? 'Unknown User'} left={() => <List.Icon icon="account" />} />
+					</TouchableOpacity>
 					<TouchableOpacity onPress={() => { }}>
 						<List.Item title="Version" description={packageJson.version} left={() => <List.Icon icon="code-tags" />} />
 					</TouchableOpacity>
@@ -59,4 +52,4 @@ const Profile = () => {
 	);
 }
 
-export default Profile;
+export default Settings;

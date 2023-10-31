@@ -10,12 +10,19 @@ import { FoodFactsProduct } from '../../api/api-types';
 import BarcodeScannerOverlay from '../../components/BarcodeScannerOverlay';
 import * as utils from '../../utils';
 import { HUMAN_READABLE_NUTRIMENT_HASHMAP } from '../../api/models';
+import { general } from '../../styles';
+
+enum CAMERA_FACING_ENUM {
+	FRONT = 1,
+	BACK = 2
+}
 
 const Scan = () => {
 	const [scanned, setScanned] = useState(false);
 	const [fetchingData, setFetchingData] = useState(false);
 	const [hasPermission, setHasPermission] = useState(false);
 	const [product, setProduct] = useState<null | FoodFactsProduct>(null);
+	const [cameraType, setCameraType] = useState(CAMERA_FACING_ENUM.BACK);
 
 	// ref
 	const bottomSheetRef = useRef<BottomSheet>(null);
@@ -30,6 +37,23 @@ const Scan = () => {
 		};
 
 		getBarCodeScannerPermissions();
+
+		const test = async () => {
+			setScanned(true);
+			setFetchingData(true);
+
+			const prod = await API.getProductData('3017620422003');
+
+			setProduct(prod);
+	
+			setFetchingData(false);
+	
+			setTimeout(() => {
+				bottomSheetRef?.current?.expand();
+			}, 1000);
+		}
+
+		test();
 	}, []);
 
 	const handleBarCodeScanned = async ({ type, data }: any) => {
@@ -52,7 +76,7 @@ const Scan = () => {
 	}
 
 	if (hasPermission === false) {
-		return <Text>No access to camera</Text>;
+		return <View style={general.center}><Text>No access to camera</Text></View>;
 	}
 
 	return (
@@ -60,10 +84,16 @@ const Scan = () => {
 			<>
 				<View style={styles.container}>
 					<BarCodeScanner
+						type={cameraType}
 						onBarCodeScanned={scanned ? undefined : handleBarCodeScanned}
 						style={styles.barcodeScannerStyle}
 					/>
-					<BarcodeScannerOverlay scanned={scanned} setScanned={setScanned} />
+					<BarcodeScannerOverlay
+						scanned={scanned}
+						setScanned={setScanned}
+						setCameraType={setCameraType}
+						cameraType={cameraType}
+					/>
 					{scanned && <Portal>
 						<View style={styles.container}>
 							{/* {console.log(product)} */}

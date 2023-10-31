@@ -261,7 +261,7 @@ const FoodPrefSelection = () => {
 					{newUser && (
 						<Button
 							mode="text"
-							onPress={() => router.push('/(app)/recent-scans')}
+							onPress={() => router.replace('/(app)/recent-scans')}
 							labelStyle={{  ...foodPrefStyles.bottomBarButtonLabel, alignSelf: 'flex-end' }}
 							icon="chevron-right"
 							contentStyle={{ flexDirection: 'row-reverse' }}
