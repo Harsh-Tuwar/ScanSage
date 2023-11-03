@@ -119,11 +119,21 @@ interface NutrientLevels {
 	sugars: string;
 }
 
+// ingredients_analysis
+export interface UnknownIngredientsAnalysis {
+	unknownContentPalmOil: string[];
+	unknownContentVegan: string[];
+	unknownContentVeg: string[];
+	nonVeganContent: string[];
+	palmOilContent: string[];
+	vegContent: string[];
+}
+
 export interface FoodFactsProduct {
 	code: string;
 	title: string;
 	allergens_tags: string[];
-	nutriments: Nutriment;
+	nutriments: Nutriments;
 	images: SelectedImages;
 	mainImg: FoodFactsProductImages;
 	ingredients: Ingredient[];
@@ -132,8 +142,5 @@ export interface FoodFactsProduct {
 	ingredients_analysis_tags?: string[];
 	nutriscore_grade: string;
 	nutriscore_score: string;
+	unknownIngredients: UnknownIngredientsAnalysis;
 }
-
-// export interface USDAProduct {
-// 	title: 
-// }
