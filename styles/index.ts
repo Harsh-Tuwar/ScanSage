@@ -12,6 +12,12 @@ export const general = StyleSheet.create({
 });
 
 export const helpers = StyleSheet.create({
+	mb5: {
+		marginBottom: 5
+	},
+	mb10: {
+		marginBottom: 10
+	},
 	mb30: {
 		marginBottom: 30
 	},

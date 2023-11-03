@@ -2,15 +2,25 @@ import { Image } from 'expo-image';
 import retryImage from '../assets/images/retry.png';
 import { PropsWithChildren, useEffect, useState } from 'react'
 import { View, Animated, StyleSheet, TouchableOpacity } from 'react-native'
+import { IconButton, Text } from 'react-native-paper';
+
+enum CAMERA_FACING_ENUM {
+	FRONT = 1,
+	BACK = 2
+}
 
 interface BarcodeScannerOverlayProps extends PropsWithChildren {
-	scanned: boolean,
-	setScanned: React.Dispatch<React.SetStateAction<boolean>>
+	scanned: boolean;
+	setScanned: React.Dispatch<React.SetStateAction<boolean>>;
+	cameraType: number;
+	setCameraType: React.Dispatch<React.SetStateAction<CAMERA_FACING_ENUM>>;
 }
 
 const BarcodeScannerOverlay = ({
 	scanned,
-	setScanned
+	setScanned,
+	cameraType,
+	setCameraType
 }: BarcodeScannerOverlayProps) => {
 	const [animationLineHeight, setAnimationLineHeight] = useState({
 		x: 0,
@@ -75,6 +85,20 @@ const BarcodeScannerOverlay = ({
 							]}
 						/>
 					)}
+					<View style={{ alignItems: 'flex-end', marginRight: 10 }}>
+						<IconButton
+							icon="camera-flip"
+							iconColor={'white'}
+							size={32}
+							onPress={() => {
+								if (cameraType === CAMERA_FACING_ENUM.BACK) {
+									setCameraType(CAMERA_FACING_ENUM.FRONT);
+								} else {
+									setCameraType(CAMERA_FACING_ENUM.BACK);
+								}
+							}}
+						/>
+					</View>
 					{scanned && (
 						<TouchableOpacity
 							onPress={() => setScanned(false)}
@@ -100,6 +124,7 @@ const styles = StyleSheet.create({
 		flex: 1,
 		alignItems: 'center',
 		justifyContent: 'center',
+		marginTop: -50
 	},
 	animationLineStyle: {
 		height: 3,

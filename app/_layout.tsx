@@ -1,18 +1,12 @@
 import { useFonts } from 'expo-font';
-import { Button, IconButton } from 'react-native-paper';
 import { Stack, useRouter } from 'expo-router'
 import { PaperProvider, configureFonts, useTheme } from 'react-native-paper'
 import { UserProvider } from '../context/UserContext';
 
 import * as SplashScreen from 'expo-splash-screen';
-import { FontAwesome5 } from '@expo/vector-icons';
-import { TouchableOpacity } from 'react-native-gesture-handler';
-import { View } from 'react-native';
-
 SplashScreen.preventAutoHideAsync();
 
 const StackLayout = () => {
-	const router = useRouter();
 	const [fontsLoaded, fontError] = useFonts({
 		'PlaypenSans-Bold': require('../assets/fonts/PlaypenSans-Bold.ttf'),
 		'PlaypenSans-ExtraBold': require('../assets/fonts/PlaypenSans-ExtraBold.ttf'),
@@ -57,6 +51,12 @@ const StackLayout = () => {
 					<Stack.Screen name="index" />
 					<Stack.Screen name="food-prefs" />
 					<Stack.Screen name="register" />
+					<Stack.Screen
+						name="modify-user-modal"
+						options={{
+							presentation: 'modal',
+						}}
+					/>
 				</Stack>
 			</PaperProvider>
 		</UserProvider>

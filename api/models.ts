@@ -1,4 +1,4 @@
-import { Nutriments, FoodFactsProduct, SelectedImages } from './api-types';
+import { Nutriments, FoodFactsProduct, SelectedImages, UnknownIngredientsAnalysis } from './api-types';
 
 type NutrimentHashmap = { [key: string]: string };
 
@@ -348,8 +348,51 @@ export const _getEmptyProduct = (): FoodFactsProduct => {
 		ingredients: [],
 		nutriscore_grade: '',
 		nutriscore_score: '',
-		allergens_tags: []
+		allergens_tags: [],
+		unknownIngredients: {
+			unknownContentPalmOil: [],
+			unknownContentVeg: [],
+			unknownContentVegan: [],
+			nonVeganContent: [],
+			palmOilContent: [],
+			vegContent: []
+		}
 	};
+};
+
+export const _rawUnknownIngresToProdUnknownIngres = (_rawUnknownIngres: any): UnknownIngredientsAnalysis => {
+	const unknownIngres: UnknownIngredientsAnalysis = {
+		unknownContentPalmOil: [],
+		unknownContentVeg: [],
+		unknownContentVegan: [],
+		nonVeganContent: [],
+		palmOilContent: [],
+		vegContent: []
+	};
+
+	if (_rawUnknownIngres) {
+		if (_rawUnknownIngres['en:palm-oil-content-unknown']) {
+			unknownIngres.unknownContentPalmOil = _rawUnknownIngres['en:palm-oil-content-unknown'];
+		}
+
+		if (_rawUnknownIngres['en:vegan-status-unknown']) {
+			unknownIngres.unknownContentVegan = _rawUnknownIngres['en:vegan-status-unknown'];
+		}
+
+		if (_rawUnknownIngres['en:vegetarian-status-unknown']) {
+			unknownIngres.unknownContentVeg = _rawUnknownIngres['en:vegetarian-status-unknown'];
+		}
+
+		if (_rawUnknownIngres['en:non-vegan']) {
+			unknownIngres.nonVeganContent = _rawUnknownIngres['en:non-vegan'];
+		}
+
+		if (_rawUnknownIngres['en:palm-oil']) {
+			unknownIngres.palmOilContent = _rawUnknownIngres['en:palm-oil'];
+		}
+	}
+
+	return unknownIngres;
 };
 
 export const _rawProductToProduct = (_rawResponse: any): FoodFactsProduct => {
@@ -364,6 +407,7 @@ export const _rawProductToProduct = (_rawResponse: any): FoodFactsProduct => {
 	product.ingredients_analysis_tags = rawRespProductData.ingredients_analysis_tags ?? [];
 	product.ingredients_tags = rawRespProductData.ingredients_tags ?? [];
 	product.allergens_tags = rawRespProductData.allergens_tags ?? [];
+	product.unknownIngredients = _rawUnknownIngresToProdUnknownIngres(rawRespProductData.ingredients_analysis);
 
 	if (rawRespProductData.hasOwnProperty('nutrient_levels')) {
 		product.nutrient_levels = rawRespProductData['nutrient_levels'];
