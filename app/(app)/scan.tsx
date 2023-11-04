@@ -14,6 +14,8 @@ import { general, helpers } from '../../styles';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { getKeyValue_FromNutriLevel, getNutrilevelColor } from '../../utils/scan';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
+import { addRecentScan } from '../../firebase/db';
+import { useUser } from '../../context/UserContext';
 
 enum CAMERA_FACING_ENUM {
 	FRONT = 1,
@@ -28,6 +30,7 @@ const INGREDIENT_TAG_ICONS_MAP = {
 };
 
 const Scan = () => {
+	const { user } = useUser();
 	const [scanned, setScanned] = useState(false);
 	const [fetchingData, setFetchingData] = useState(false);
 	const [hasPermission, setHasPermission] = useState(false);
@@ -71,18 +74,36 @@ const Scan = () => {
 			}, 1000);
 		}
 
-		test();
+		// test();
 	}, []);
 
-	const handleBarCodeScanned = async ({ type, data }: any) => {
+	const handleBarCodeScanned = async ({ type, data: barcode }: any) => {
 		setScanned(true);
 		setFetchingData(true);
 
-		const prod = await API.getProductData(data);
+		const prod = await API.getProductData(barcode);
 
 		setProduct(prod);
 
 		setFetchingData(false);
+
+		// TODO: type this
+		const recentScanPayload = {} as any;
+		recentScanPayload[barcode] = {
+			barcode: barcode,
+			lastScanned: new Date().toUTCString(),
+			img: prod.mainImg.image_front_thumb_url,
+			name: prod.title
+		};
+		
+		// recentScanPayload.set(barcode, {
+		// 	barcode: barcode,
+		// 	lastScanned: new Date().toUTCString(),
+		// 	img: prod.mainImg.image_front_thumb_url,
+		// 	name: prod.title
+		// })
+
+		void addRecentScan(user?.uid ?? '', recentScanPayload);
 
 		setTimeout(() => {
 			bottomSheetRef?.current?.expand();
@@ -249,22 +270,6 @@ const Scan = () => {
 												/>}
 											/>
 										</Card>
-										{/* Item General */}
-										{/* <Card style={{ margin: 10 }}>
-											<Card.Content>
-												<RNPText variant="titleMedium">General</RNPText>
-												<Divider style={{ marginVertical: 10 }} bold />
-												<View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
-													<RNPText variant='titleMedium'>Nutri Score</RNPText>
-													<RNPText variant='bodyMedium'>{product.nutriscore_score === '' ? 'Unknown' : product.nutriscore_score}</RNPText>
-												</View>
-												<View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
-													<RNPText variant='titleMedium'>Nutri Grade</RNPText>
-													<RNPText variant='bodyMedium'>{utils.uppercaseFirstLetter(product.nutriscore_grade)}</RNPText>
-												</View>
-											</Card.Content>
-										</Card> */}
-										{/* Health */}
 										{Object.keys(product.nutrient_levels).length > 0 && (
 											<Card style={{ margin: 10 }}>
 												<Card.Content>

@@ -1,6 +1,6 @@
 import { User } from 'firebase/auth';
 import { FIREBASE_DB } from './FBConfig';
-import { setDoc, doc, updateDoc } from 'firebase/firestore';
+import { setDoc, doc, updateDoc, arrayUnion } from 'firebase/firestore';
 import { FB_USER_COLLECTION_STRING } from '../constants';
 
 export const createUserInformation = async (userInfo: User) => {
@@ -8,6 +8,7 @@ export const createUserInformation = async (userInfo: User) => {
 		await setDoc(doc(FIREBASE_DB, FB_USER_COLLECTION_STRING, userInfo.uid), {
 			name: userInfo.displayName,
 			email: userInfo.email,
+			recentScans: {},
 			foodPrefs: {
 				allergens: {
 					withoutGluten: '0',
@@ -55,5 +56,15 @@ export const upsertFoodPreferences = async (userId: string, data: any) => {
 		});
 	} catch (err) {
 		console.log('Error in firebase/db/upsertFoodPreferences: ', err);
+	}
+};
+
+export const addRecentScan = async (userId: string, barcodeData: any) => {
+	try {
+		await setDoc(doc(FIREBASE_DB, FB_USER_COLLECTION_STRING, userId), {
+			recentScans: barcodeData
+		}, { merge: true });
+	} catch (err) {
+		console.log('Error in firebase/db/addRecentScan: ', err);
 	}
 };
