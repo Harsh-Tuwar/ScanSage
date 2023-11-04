@@ -95,13 +95,6 @@ const Scan = () => {
 			img: prod.mainImg.image_front_thumb_url,
 			name: prod.title
 		};
-		
-		// recentScanPayload.set(barcode, {
-		// 	barcode: barcode,
-		// 	lastScanned: new Date().toUTCString(),
-		// 	img: prod.mainImg.image_front_thumb_url,
-		// 	name: prod.title
-		// })
 
 		void addRecentScan(user?.uid ?? '', recentScanPayload);
 

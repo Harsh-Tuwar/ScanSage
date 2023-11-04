@@ -1,6 +1,6 @@
 import { User } from 'firebase/auth';
 import { FIREBASE_DB } from './FBConfig';
-import { setDoc, doc, updateDoc, arrayUnion } from 'firebase/firestore';
+import { setDoc, doc, updateDoc } from 'firebase/firestore';
 import { FB_USER_COLLECTION_STRING } from '../constants';
 
 export const createUserInformation = async (userInfo: User) => {
