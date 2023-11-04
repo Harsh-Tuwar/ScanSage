@@ -149,87 +149,89 @@ const FoodPrefSelection = () => {
 					Choose what information about food matters most to you, in order to rank food according to your
 					preferences, see the information you care about first, and get a compatibility summary.
 				</Text>
-				<List.AccordionGroup>
-					<AllergensAccordian
-						allergens={prefSelection.allergens}
-						setAllergenSelection={async (userSelection) => {
-							const newPrefSelection = {
-								...prefSelection.allergens,
-								...userSelection
-							};
+				<View style={foodPrefStyles.accordianContainer}>
+					<List.AccordionGroup>
+						<AllergensAccordian
+							allergens={prefSelection.allergens}
+							setAllergenSelection={async (userSelection) => {
+								const newPrefSelection = {
+									...prefSelection.allergens,
+									...userSelection
+								};
 
-							const prefData = {
-								allergens: newPrefSelection,
-								foodPrecessing: prefSelection.foodPrecessing,
-								ingredients: prefSelection.ingredients,
-								nutriQuality: prefSelection.nutriQuality
-							};
+								const prefData = {
+									allergens: newPrefSelection,
+									foodPrecessing: prefSelection.foodPrecessing,
+									ingredients: prefSelection.ingredients,
+									nutriQuality: prefSelection.nutriQuality
+								};
 
-							await savePreferences(prefData);
-							setPrefSelection(prefData);
-						}}
-					/>
-					<NutritionalQualityAccordian
-						nutriQuality={prefSelection.nutriQuality}
-						setNutriQuality={async (userSelection) => {
-							const newPrefSelection = {
-								...prefSelection.nutriQuality,
-								...userSelection
-							};
+								await savePreferences(prefData);
+								setPrefSelection(prefData);
+							}}
+						/>
+						<NutritionalQualityAccordian
+							nutriQuality={prefSelection.nutriQuality}
+							setNutriQuality={async (userSelection) => {
+								const newPrefSelection = {
+									...prefSelection.nutriQuality,
+									...userSelection
+								};
 
-							const prefData = {
-								allergens: prefSelection.allergens,
-								foodPrecessing: prefSelection.foodPrecessing,
-								ingredients: prefSelection.ingredients,
-								nutriQuality: newPrefSelection
-							};
+								const prefData = {
+									allergens: prefSelection.allergens,
+									foodPrecessing: prefSelection.foodPrecessing,
+									ingredients: prefSelection.ingredients,
+									nutriQuality: newPrefSelection
+								};
 
-							await savePreferences(prefData);
+								await savePreferences(prefData);
 
-							setPrefSelection(prefData);
-						}}
-					/>
-					<IngredientsAccordian
-						ingredients={prefSelection.ingredients}
-						setIngredientSelection={async (userSelection) => {
-							const newPrefSelection = {
-								...prefSelection.ingredients,
-								...userSelection
-							};
+								setPrefSelection(prefData);
+							}}
+						/>
+						<IngredientsAccordian
+							ingredients={prefSelection.ingredients}
+							setIngredientSelection={async (userSelection) => {
+								const newPrefSelection = {
+									...prefSelection.ingredients,
+									...userSelection
+								};
 
-							const prefData = {
-								ingredients: newPrefSelection,
-								allergens: prefSelection.allergens,
-								foodPrecessing: prefSelection.foodPrecessing,
-								nutriQuality: prefSelection.nutriQuality
-							};
+								const prefData = {
+									ingredients: newPrefSelection,
+									allergens: prefSelection.allergens,
+									foodPrecessing: prefSelection.foodPrecessing,
+									nutriQuality: prefSelection.nutriQuality
+								};
 
-							await savePreferences(prefData);
+								await savePreferences(prefData);
 
-							setPrefSelection(prefData);
-						}}
-					/>
-					<FoodProcessingAccordian
-						foodProcessing={prefSelection.foodPrecessing}
-						setFoodProcessingSelection={async (userSelection) => {
-							const newPrefSelection = {
-								...prefSelection.foodPrecessing,
-								...userSelection
-							};
+								setPrefSelection(prefData);
+							}}
+						/>
+						<FoodProcessingAccordian
+							foodProcessing={prefSelection.foodPrecessing}
+							setFoodProcessingSelection={async (userSelection) => {
+								const newPrefSelection = {
+									...prefSelection.foodPrecessing,
+									...userSelection
+								};
 
-							const prefData = {
-								ingredients: prefSelection.ingredients,
-								allergens: prefSelection.allergens,
-								foodPrecessing: newPrefSelection,
-								nutriQuality: prefSelection.nutriQuality
-							};
+								const prefData = {
+									ingredients: prefSelection.ingredients,
+									allergens: prefSelection.allergens,
+									foodPrecessing: newPrefSelection,
+									nutriQuality: prefSelection.nutriQuality
+								};
 
-							await savePreferences(prefData);
+								await savePreferences(prefData);
 
-							setPrefSelection(prefData);
-						}}
-					/>
-				</List.AccordionGroup>
+								setPrefSelection(prefData);
+							}}
+						/>
+					</List.AccordionGroup>
+				</View>
 			</ScrollView>
 			<Portal>
 				<Snackbar

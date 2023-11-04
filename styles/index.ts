@@ -77,15 +77,18 @@ export const registerStyles = StyleSheet.create({
 export const foodPrefStyles = StyleSheet.create({
 	container: {
 		marginHorizontal: 10,
-		height: '100%'
+		height: SCREEN_HEIGHT - 70,
 	},
 	title: {
 		fontSize: 18,
 		fontWeight: 'bold'
 	},
+	accordianContainer: {
+		marginBottom: 100
+	},
 	bottomBar: {
 		bottom: 20,
-		height: 100,
+		height: 70,
 		width: SCREEN_WIDTH,
 		paddingVertical: 10,
 		position: 'absolute',
