@@ -1,15 +1,15 @@
-import * as API from '../../api/openFoodFactsService';
-import { View, Text, StyleSheet } from 'react-native'
-import { useState, useEffect, useRef } from 'react'
-import { BarCodeScanner } from 'expo-barcode-scanner';
-import CenterLoader from '../../components/CenterLoader';
-import { Portal } from 'react-native-paper';
-import { FoodFactsProduct } from '../../api/api-types';
-import BarcodeScannerOverlay from '../../components/BarcodeScannerOverlay';
-import { general } from '../../styles';
+import { general, helpers } from '../../styles';
+import { useState, useEffect } from 'react'
 import { addRecentScan } from '../../firebase/db';
 import { useUser } from '../../context/UserContext';
+import { View, Text, StyleSheet } from 'react-native'
+import * as API from '../../api/openFoodFactsService';
+import { BarCodeScanner } from 'expo-barcode-scanner';
+import { FoodFactsProduct } from '../../api/api-types';
+import CenterLoader from '../../components/CenterLoader';
 import ScannedItemInfoSheet from '../../components/ScannedItemInfoSheet';
+import BarcodeScannerOverlay from '../../components/BarcodeScannerOverlay';
+import { Button, Modal, Portal } from 'react-native-paper';
 
 enum CAMERA_FACING_ENUM {
 	FRONT = 1,
@@ -24,6 +24,7 @@ const Scan = () => {
 	const [hasPermission, setHasPermission] = useState(false);
 	const [product, setProduct] = useState<null | FoodFactsProduct>(null);
 	const [cameraType, setCameraType] = useState(CAMERA_FACING_ENUM.BACK);
+	const [showModal, setShowModal] = useState(false);
 
 	useEffect(() => {
 		const getBarCodeScannerPermissions = async () => {
@@ -50,9 +51,12 @@ const Scan = () => {
 		};
 
 		
+		setProduct(prod);
+
 		if (prod.title !== '') {
-			setProduct(prod);
 			void addRecentScan(user?.uid ?? '', recentScanPayload);
+		} else {
+			setShowModal(true);
 		}
 
 		setFetchingData(false);
@@ -81,10 +85,18 @@ const Scan = () => {
 						setCameraType={setCameraType}
 						cameraType={cameraType}
 					/>
-					{scanned && (
-						<ScannedItemInfoSheet product={product} />
-					)}
+					{scanned && product?.title  && <ScannedItemInfoSheet product={product} />}
 				</View>
+				<Portal>
+					<Modal
+						visible={showModal}
+						onDismiss={() => setShowModal(false)}
+						contentContainerStyle={{ ...helpers.p20, backgroundColor: 'white', margin: 20, borderRadius: 10 }}
+					>
+						<Text>No Product Found!</Text>
+						<Button mode='contained' onPress={() => setShowModal(false)} style={{ marginTop: 20, marginHorizontal: 10 }}>Got it</Button>
+					</Modal>
+				</Portal>
 			</>
 		)
 	);

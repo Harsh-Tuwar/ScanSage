@@ -11,16 +11,23 @@ import * as API from '../../api/openFoodFactsService';
 import CenterLoader from '../../components/CenterLoader';
 import ScannedItemInfoSheet from '../../components/ScannedItemInfoSheet';
 import { sortHelpers } from '../../utils';
+import { Button, Modal, Portal, Text } from 'react-native-paper';
 
 const RecentScans = () => {
 	const { fbUser } = useUser();
 	const [fetchingData, setFetchingData] = useState(false);
 	const [prod, setProd] = useState<null | FoodFactsProduct>(null);
+	const [showModal, setShowModal] = useState(false);
 
 	const handleProdSelect = async (barcode: string) => {
 		setFetchingData(true);
 
 		const prodData = await API.getProductData(barcode);
+
+		if (prodData.title === '') {
+			console.log('No product found!');
+			setShowModal(true);
+		}
 
 		setProd(prodData);
 
@@ -46,7 +53,17 @@ const RecentScans = () => {
 						);
 					})}
 				</ScrollView>
-				{prod && <ScannedItemInfoSheet product={prod} />}
+				{prod?.title && <ScannedItemInfoSheet product={prod} />}
+				<Portal>
+					<Modal
+						visible={showModal}
+						onDismiss={() => setShowModal(false)}
+						contentContainerStyle={{ ...helpers.p20, backgroundColor: 'white', margin: 20, borderRadius: 10 }}
+					>
+						<Text>No Product Found!</Text>
+						<Button mode='contained' onPress={() => setShowModal(false)} style={{ marginTop: 20, marginHorizontal: 10 }}>Got it</Button>
+					</Modal>
+				</Portal>
 			</SafeAreaView>
 		)
 	);
