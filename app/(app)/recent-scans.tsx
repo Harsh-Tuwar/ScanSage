@@ -10,6 +10,7 @@ import { FoodFactsProduct } from '../../api/api-types';
 import * as API from '../../api/openFoodFactsService';
 import CenterLoader from '../../components/CenterLoader';
 import ScannedItemInfoSheet from '../../components/ScannedItemInfoSheet';
+import { sortHelpers } from '../../utils';
 
 const RecentScans = () => {
 	const { fbUser } = useUser();
@@ -31,7 +32,7 @@ const RecentScans = () => {
 			<SafeAreaView style={{ ...helpers.m10 }}>
 				<PageTitle>Recent Scans</PageTitle>
 				<ScrollView>
-					{fbUser?.recentScans && Object.values(fbUser.recentScans).map((scannedItem: any) => {
+					{fbUser?.recentScans && Object.values(fbUser.recentScans).sort(sortHelpers.last_scanned_sort).map((scannedItem: any) => {
 						return (
 							<GmailStyleSwipeableRow key={scannedItem.barcode}>
 								<RecentScanCard

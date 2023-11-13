@@ -1,3 +1,7 @@
+export const sortHelpers = {
+	last_scanned_sort: (a: any, b: any) => new Date(b.lastScanned).getTime() - new Date(a.lastScanned).getTime()
+};
+  
 export const uppercaseFirstLetter = (str: string): string => {
 	const ucFirstLetter = str.charAt(0).toUpperCase() + str.slice(1);
 
