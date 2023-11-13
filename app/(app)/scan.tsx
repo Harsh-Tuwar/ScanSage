@@ -49,10 +49,10 @@ const Scan = () => {
 			name: prod.title
 		};
 
-		void addRecentScan(user?.uid ?? '', recentScanPayload);
-
+		
 		if (prod.title !== '') {
 			setProduct(prod);
+			void addRecentScan(user?.uid ?? '', recentScanPayload);
 		}
 
 		setFetchingData(false);
@@ -81,7 +81,9 @@ const Scan = () => {
 						setCameraType={setCameraType}
 						cameraType={cameraType}
 					/>
-					{scanned && <Portal><ScannedItemInfoSheet product={product} /></Portal>}
+					{scanned && (
+						<ScannedItemInfoSheet product={product} />
+					)}
 				</View>
 			</>
 		)

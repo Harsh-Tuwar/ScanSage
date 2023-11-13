@@ -4,7 +4,7 @@ import { ActivityIndicator } from 'react-native-paper'
 const CenterLoader = () => {
 	return (
 		<View style={{ display: 'flex', flex: 1, justifyContent: "center" }}>
-			<ActivityIndicator size={'large'} />
+			<ActivityIndicator size={'large'} shouldRasterizeIOS />
 		</View>
 	);
 }

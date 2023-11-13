@@ -10,17 +10,19 @@ interface RecentScanCardProps extends PropsWithChildren {
 	imgUrl: string;
 	title: string;
 	lastScanned: string;
+	onProdSelect: (barcode: string) => void
 }
 
 const RecentScanCard = ({
 	barcode,
 	imgUrl,
 	title,
-	lastScanned
+	lastScanned,
+	onProdSelect
 }: RecentScanCardProps) => {
 	return (
 		<Card mode='elevated' style={helpers.m5}>
-			<TouchableOpacity onPress={() => console.log('barcode', barcode)}>
+			<TouchableOpacity onPress={() => onProdSelect(barcode)}>
 				<Card.Title
 					subtitleStyle={{ fontSize: 10, marginLeft: 15 }}
 					titleStyle={{ marginLeft: 15 }}
