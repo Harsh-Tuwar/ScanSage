@@ -95,7 +95,6 @@ export const foodPrefStyles = StyleSheet.create({
 		flexDirection: 'row',
 		paddingHorizontal: 10,
 		marginHorizontal: -10,
-		backgroundColor: 'tomato',
 		justifyContent: 'space-between'
 	},
 	bottomBarButtonLabel: {

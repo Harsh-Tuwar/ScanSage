@@ -1,12 +1,14 @@
 import { View } from 'react-native';
-import { Text } from 'react-native-paper';
+import { Text, useTheme } from 'react-native-paper';
 import { StyleSheet } from 'react-native';
 import React, { PropsWithChildren } from 'react';
 
 const PageTitle = ({ children }: PropsWithChildren) => {
+	const theme = useTheme();
+
 	return (
-		<View style={styles.container}>
-			<Text style={styles.text}>{children}</Text>
+		<View style={{ ...styles.container }}>
+			<Text style={{ ...styles.text, color: theme.colors.onSurface }}>{children}</Text>
 		</View>
 	);
 }

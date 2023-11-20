@@ -1,12 +1,21 @@
 import { useFonts } from 'expo-font';
-import { Stack, useRouter } from 'expo-router'
-import { PaperProvider, configureFonts, useTheme } from 'react-native-paper'
+import { Stack } from 'expo-router'
+import { PaperProvider, configureFonts } from 'react-native-paper'
 import { UserProvider } from '../context/UserContext';
 
 import * as SplashScreen from 'expo-splash-screen';
+import { useColorScheme } from 'react-native';
+import CustomDarkTheme from '../themes/DarkTheme';
+import CustomLightTheme from '../themes/LightTheme';
 SplashScreen.preventAutoHideAsync();
 
 const StackLayout = () => {
+	const colorScheme = useColorScheme();
+	const paperTheme =
+		colorScheme === 'dark'
+			? CustomDarkTheme
+			: CustomLightTheme;
+	
 	const [fontsLoaded, fontError] = useFonts({
 		'PlaypenSans-Bold': require('../assets/fonts/PlaypenSans-Bold.ttf'),
 		'PlaypenSans-ExtraBold': require('../assets/fonts/PlaypenSans-ExtraBold.ttf'),
@@ -38,16 +47,14 @@ const StackLayout = () => {
 		},
 	});
 
-	const theme = useTheme();
-
 	if (!fontsLoaded && !fontError) {
 		return null;
 	}
 
 	return (
 		<UserProvider>
-			<PaperProvider theme={{ ...theme, fonts }}>
-				<Stack screenOptions={{ animation: 'fade', headerShown: false }} initialRouteName='index'>
+			<PaperProvider theme={{ ...paperTheme, fonts }}>
+				<Stack screenOptions={{ animation: 'fade', headerShown: false, statusBarColor: paperTheme.colors.onBackground }}  initialRouteName='index'>
 					<Stack.Screen name="index" />
 					<Stack.Screen name="food-prefs" />
 					<Stack.Screen name="register" />

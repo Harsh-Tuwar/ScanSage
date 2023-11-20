@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { helpers } from '../../styles';
+import { SCREEN_HEIGHT, helpers } from '../../styles';
 import PageTitle from '../../components/PageTitle';
 import { useUser } from '../../context/UserContext';
 import { ScrollView } from 'react-native-gesture-handler';
@@ -11,9 +11,10 @@ import * as API from '../../api/openFoodFactsService';
 import CenterLoader from '../../components/CenterLoader';
 import ScannedItemInfoSheet from '../../components/ScannedItemInfoSheet';
 import { sortHelpers } from '../../utils';
-import { Button, Modal, Portal, Text } from 'react-native-paper';
+import { Button, Modal, Portal, Text, useTheme } from 'react-native-paper';
 
 const RecentScans = () => {
+	const theme = useTheme();
 	const { fbUser } = useUser();
 	const [fetchingData, setFetchingData] = useState(false);
 	const [prod, setProd] = useState<null | FoodFactsProduct>(null);
@@ -36,9 +37,9 @@ const RecentScans = () => {
 
 	return (
 		fetchingData ? <CenterLoader /> : (
-			<SafeAreaView style={{ ...helpers.m10 }}>
+			<SafeAreaView style={{ ...helpers.p10, backgroundColor: theme.colors.background }}>
 				<PageTitle>Recent Scans</PageTitle>
-				<ScrollView>
+				<ScrollView style={{ ...helpers.mb20, height: SCREEN_HEIGHT }}>
 					{fbUser?.recentScans && Object.values(fbUser.recentScans).sort(sortHelpers.last_scanned_sort).map((scannedItem: any) => {
 						return (
 							<GmailStyleSwipeableRow key={scannedItem.barcode}>

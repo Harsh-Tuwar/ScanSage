@@ -1,4 +1,4 @@
-import { Button, Portal, Snackbar, TextInput } from 'react-native-paper';
+import { Button, Portal, Snackbar, TextInput, useTheme } from 'react-native-paper';
 import { Redirect, useRouter } from 'expo-router';
 import { SNACK_DURATION } from '../constants';
 import { useUser } from '../context/UserContext';
@@ -8,6 +8,7 @@ import CenterLoader from '../components/CenterLoader';
 import React, { useState } from "react";
 
 const Login = () => {
+	const theme = useTheme();
 	const { user, initialized, fbInitialized } = useUser();
 	const router = useRouter();
 	const [email, setEmail] = useState('haha@99.ca');
@@ -48,9 +49,9 @@ const Login = () => {
 	}
 
 	return (
-		<View style={styles.centered}>
+		<View style={{ ...styles.centered, backgroundColor: theme.colors.background }}>
 			<KeyboardAvoidingView behavior='padding'>
-				<Text style={styles.title}>Login</Text>
+				<Text style={{ ...styles.title, color: theme.colors.onSurface }}>Login</Text>
 				<TextInput
 					label="Username"
 					mode='outlined'
