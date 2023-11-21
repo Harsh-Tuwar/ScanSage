@@ -69,7 +69,7 @@ export const modifyRecentScans = async (userId: string, barcodeData: any, merge?
 	}
 };
 
-export const updateModifyRecentScans = async (userId: string, recentScans: any) => {
+export const updateRecentScans = async (userId: string, recentScans: any) => {
 	try {
 		await updateDoc(doc(FIREBASE_DB, FB_USER_COLLECTION_STRING, userId), {
 			recentScans: recentScans

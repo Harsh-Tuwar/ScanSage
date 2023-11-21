@@ -13,7 +13,7 @@ import ScannedItemInfoSheet from '../../components/ScannedItemInfoSheet';
 import { sortHelpers } from '../../utils';
 import { Button, Modal, Portal, Text, useTheme } from 'react-native-paper';
 import RenderRight from '../../components/AnimatedRightButton';
-import { updateModifyRecentScans } from '../../firebase/db';
+import { updateRecentScans } from '../../firebase/db';
 import { View } from 'react-native';
 
 const RecentScans = () => {
@@ -57,7 +57,7 @@ const RecentScans = () => {
 									delete updatedData.recentScans[scannedItem.barcode];
 
 									if (user?.uid) {
-										await updateModifyRecentScans(user.uid, updatedData.recentScans);
+										await updateRecentScans(user.uid, updatedData.recentScans);
 									} else {
 										alert('Error deleting entry!');
 									}
