@@ -13,7 +13,7 @@ const Login = () => {
 	const router = useRouter();
 	const [email, setEmail] = useState('haha@99.ca');
 	const [password, setPassword] = useState('HarshTuwar@12');
-	const [showPassword, setShowPassword] = useState(true);
+	const [showPassword, setShowPassword] = useState(false);
 	const [snackObj, setSnackObj] = useState({ visible: false, message: '' });
 	const [loadingAction, setLoadingAction] = useState(false);
 
@@ -65,7 +65,7 @@ const Login = () => {
 					value={password}
 					mode='outlined'
 					style={styles.textfield}
-					secureTextEntry={showPassword}
+					secureTextEntry={true}
 					right={<TextInput.Icon icon={showPassword ? 'eye' : 'eye-off'} onPress={() => setShowPassword(!showPassword)} />}
 					keyboardType='visible-password'
 					onChangeText={text => setPassword(text)}
