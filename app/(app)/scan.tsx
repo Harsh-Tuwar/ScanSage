@@ -1,6 +1,6 @@
 import { general, helpers } from '../../styles';
 import { useState, useEffect } from 'react'
-import { addRecentScan } from '../../firebase/db';
+import { modifyRecentScans } from '../../firebase/db';
 import { useUser } from '../../context/UserContext';
 import { View, Text, StyleSheet } from 'react-native'
 import * as API from '../../api/openFoodFactsService';
@@ -49,12 +49,11 @@ const Scan = () => {
 			img: prod.mainImg.image_front_thumb_url,
 			name: prod.title
 		};
-
 		
 		setProduct(prod);
 
 		if (prod.title !== '') {
-			void addRecentScan(user?.uid ?? '', recentScanPayload);
+			void modifyRecentScans(user?.uid ?? '', recentScanPayload, true);
 		} else {
 			setShowModal(true);
 		}

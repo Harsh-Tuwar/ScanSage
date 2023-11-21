@@ -59,12 +59,13 @@ export const upsertFoodPreferences = async (userId: string, data: any) => {
 	}
 };
 
-export const addRecentScan = async (userId: string, barcodeData: any) => {
+export const modifyRecentScans = async (userId: string, barcodeData: any, merge?: boolean) => {
 	try {
 		await setDoc(doc(FIREBASE_DB, FB_USER_COLLECTION_STRING, userId), {
 			recentScans: barcodeData
-		}, { merge: true });
+		}, { merge: merge });
 	} catch (err) {
-		console.log('Error in firebase/db/addRecentScan: ', err);
+		console.log('Error in firebase/db/modifyRecentScans: ', err);
 	}
 };
+

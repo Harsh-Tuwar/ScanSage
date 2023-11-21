@@ -37,7 +37,7 @@ const FoodPrefItem = ({ title, modalContent, selectedValue, setValue }: FoodPrep
 					theme={theme}
 					visible={showModal}
 					onDismiss={() => setShowModal(false)}
-					contentContainerStyle={{ ...helpers.p20, backgroundColor: theme.dark ? 'black' : 'white', margin: 20, borderRadius: 10 }}
+					contentContainerStyle={{ ...helpers.p20, backgroundColor: 'black', margin: 20, borderRadius: 10 }}
 				>
 					<Text theme={theme}>{modalContent}</Text>
 					<Button theme={theme} mode='contained' onPress={() => setShowModal(false)} style={{ marginTop: 20, marginHorizontal: 10 }}>Got it</Button>

@@ -1,6 +1,6 @@
 import React, { PropsWithChildren } from 'react';
 import FoodPrefItem from './FoodPrefItem';
-import { Banner, Text } from 'react-native-paper';
+import { Banner, Text, useTheme } from 'react-native-paper';
 import FoodPrefAccordianItem from './FoodPrefAccordianItem';
 
 interface AllergensAccordianPros extends PropsWithChildren {
@@ -39,10 +39,18 @@ interface AllergensAccordianPros extends PropsWithChildren {
 // ]
 
 const AllergensAccordian = ({ allergens, setAllergenSelection }: AllergensAccordianPros) => {
+	const theme = useTheme();
+
 	return (
 		<FoodPrefAccordianItem title='Allergens' id='2'>
-			<Banner visible={true} collapsable={true} style={{ backgroundColor: 'tomato', marginBottom: 10 }}>
-				<Text style={{ color: 'white' }}>There is always a possibility that data about allergens may be missing,
+			<Banner visible={true} collapsable={true} style={{
+				backgroundColor: theme.colors.background,
+				borderColor: theme.colors.onSurface,
+				borderWidth: 1,
+				marginBottom: 10,
+				borderRadius: 5
+			}}>
+				<Text>There is always a possibility that data about allergens may be missing,
 					incomplete, incorrect or that product's composition has changed. If you are
 					allergic, always check the information on the actual product packaging.</Text>
 			</Banner>

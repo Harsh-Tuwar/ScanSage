@@ -5,17 +5,19 @@ import { useUser } from '../../context/UserContext';
 import { ScrollView } from 'react-native-gesture-handler';
 import RecentScanCard from '../../components/RecentScanCard';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import GmailStyleSwipeableRow from '../../components/GmailStyleSwipable';
+import Swipeable from 'react-native-gesture-handler/Swipeable'
 import { FoodFactsProduct } from '../../api/api-types';
 import * as API from '../../api/openFoodFactsService';
 import CenterLoader from '../../components/CenterLoader';
 import ScannedItemInfoSheet from '../../components/ScannedItemInfoSheet';
 import { sortHelpers } from '../../utils';
 import { Button, Modal, Portal, Text, useTheme } from 'react-native-paper';
+import RenderRight from '../../components/AnimatedRightButton';
+import { modifyRecentScans, upsertFoodPreferences } from '../../firebase/db';
 
 const RecentScans = () => {
 	const theme = useTheme();
-	const { fbUser } = useUser();
+	const { fbUser, user} = useUser();
 	const [fetchingData, setFetchingData] = useState(false);
 	const [prod, setProd] = useState<null | FoodFactsProduct>(null);
 	const [showModal, setShowModal] = useState(false);
@@ -42,7 +44,27 @@ const RecentScans = () => {
 				<ScrollView style={{ ...helpers.mb20, height: SCREEN_HEIGHT }}>
 					{fbUser?.recentScans && Object.values(fbUser.recentScans).sort(sortHelpers.last_scanned_sort).map((scannedItem: any) => {
 						return (
-							<GmailStyleSwipeableRow key={scannedItem.barcode}>
+							<Swipeable
+								key={scannedItem.name}
+								useNativeAnimations
+								overshootLeft={false}
+								overshootRight={false}
+								renderRightActions={RenderRight}
+								onSwipeableWillOpen={async () => {
+									setFetchingData(true);
+									const newRecentScans = fbUser.recentScans;
+
+									delete newRecentScans[scannedItem.barcode];
+
+									if (user?.uid) {
+										await modifyRecentScans(user.uid, newRecentScans, false)
+									} else {
+										alert('Error deleting entry!');
+									}
+
+									setFetchingData(false);
+								}}
+							>
 								<RecentScanCard
 									title={scannedItem.name}
 									barcode={scannedItem.barcode}
@@ -50,7 +72,7 @@ const RecentScans = () => {
 									imgUrl={scannedItem.img}
 									onProdSelect={handleProdSelect}
 								></RecentScanCard>
-							</GmailStyleSwipeableRow>
+							</Swipeable>
 						);
 					})}
 				</ScrollView>
@@ -62,7 +84,11 @@ const RecentScans = () => {
 						contentContainerStyle={{ ...helpers.p20, backgroundColor: 'white', margin: 20, borderRadius: 10 }}
 					>
 						<Text>No Product Found!</Text>
-						<Button mode='contained' onPress={() => setShowModal(false)} style={{ marginTop: 20, marginHorizontal: 10 }}>Got it</Button>
+						<Button
+							mode='contained'
+							onPress={() => setShowModal(false)}
+							style={{ marginTop: 20, marginHorizontal: 10 }}
+						>Got it</Button>
 					</Modal>
 				</Portal>
 			</SafeAreaView>

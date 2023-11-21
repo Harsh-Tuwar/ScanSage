@@ -11,7 +11,7 @@ import ProductAllergens from './ProductScanComps/ProductAllergens';
 import ProductNutriments from './ProductScanComps/ProductNutriments';
 import ProductIngredients from './ProductScanComps/ProductIngredients';
 import BottomSheet, { BottomSheetScrollView } from '@gorhom/bottom-sheet';
-import { Button, Card, Chip, Divider, Modal, Portal, Text as RNPText } from 'react-native-paper';
+import { Button, Card, Chip, Divider, Modal, Portal, Text as RNPText, useTheme } from 'react-native-paper';
 
 const INGREDIENT_TAG_ICONS_MAP = {
 	'palm': 'palm-tree',
@@ -27,6 +27,7 @@ interface ScannedItemInfoSheetProps extends PropsWithChildren {
 const ScannedItemInfoSheet = ({
 	product
 }: ScannedItemInfoSheetProps) => {
+	const theme = useTheme();
 	// ref
 	const bottomSheetRef = React.useRef<BottomSheet>(null);
 	// variables
@@ -49,7 +50,13 @@ const ScannedItemInfoSheet = ({
 					<BottomSheet
 						enablePanDownToClose
 						ref={bottomSheetRef}
-						style={helpers.p10}
+						backgroundStyle={{ 
+							backgroundColor: 'black'
+						}}
+						handleIndicatorStyle={{
+							backgroundColor: theme.colors.onBackground
+						}}
+						style={{ ...helpers.p10}}
 						index={-1}
 						snapPoints={snapPoints}
 					>
@@ -147,7 +154,7 @@ const styles = StyleSheet.create({
 		position: 'relative',
 	},
 	modalContainer: {
-		backgroundColor: 'white',
+		backgroundColor: 'black',
 		margin: 20,
 		padding: 20,
 		borderRadius: 15
