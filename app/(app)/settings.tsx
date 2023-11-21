@@ -31,9 +31,10 @@ const Settings = () => {
 					}}>
 						<List.Item title="Dietary Preferences" description="Choose what information about food matters most to you" left={() => <List.Icon icon="food-variant" />} />
 					</TouchableOpacity>
-					<TouchableOpacity onPress={() => console.log('show update theme modal')}>
+					{/* TODO: Make this work */}
+					{/* <TouchableOpacity onPress={() => console.log('show update theme modal')}>
 						<List.Item title="Theme" description="Light" left={() => <List.Icon icon="theme-light-dark" />} />
-					</TouchableOpacity>
+					</TouchableOpacity> */}
 				</List.Section>
 				<List.Section>
 					<List.Subheader>General</List.Subheader>
