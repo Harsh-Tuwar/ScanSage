@@ -13,7 +13,7 @@ import ScannedItemInfoSheet from '../../components/ScannedItemInfoSheet';
 import { sortHelpers } from '../../utils';
 import { Button, Modal, Portal, Text, useTheme } from 'react-native-paper';
 import RenderRight from '../../components/AnimatedRightButton';
-import { modifyRecentScans, upsertFoodPreferences } from '../../firebase/db';
+import { updateRecentScans } from '../../firebase/db';
 import { View } from 'react-native';
 
 const RecentScans = () => {
@@ -29,7 +29,6 @@ const RecentScans = () => {
 		const prodData = await API.getProductData(barcode);
 
 		if (prodData.title === '') {
-			console.log('No product found!');
 			setShowModal(true);
 		}
 
@@ -58,7 +57,7 @@ const RecentScans = () => {
 									delete updatedData.recentScans[scannedItem.barcode];
 
 									if (user?.uid) {
-										await modifyRecentScans(user.uid, updatedData, false);
+										await updateRecentScans(user.uid, updatedData.recentScans);
 									} else {
 										alert('Error deleting entry!');
 									}
@@ -82,7 +81,7 @@ const RecentScans = () => {
 					<Modal
 						visible={showModal}
 						onDismiss={() => setShowModal(false)}
-						contentContainerStyle={{ ...helpers.p20, backgroundColor: 'white', margin: 20, borderRadius: 10 }}
+						contentContainerStyle={{ ...helpers.p20, backgroundColor: 'black', margin: 20, borderRadius: 10 }}
 					>
 						<Text>No Product Found!</Text>
 						<Button
