@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { SCREEN_HEIGHT, helpers } from '../../styles';
+import { SCREEN_HEIGHT, general, helpers } from '../../styles';
 import PageTitle from '../../components/PageTitle';
 import { useUser } from '../../context/UserContext';
 import { ScrollView } from 'react-native-gesture-handler';
@@ -14,6 +14,7 @@ import { sortHelpers } from '../../utils';
 import { Button, Modal, Portal, Text, useTheme } from 'react-native-paper';
 import RenderRight from '../../components/AnimatedRightButton';
 import { modifyRecentScans, upsertFoodPreferences } from '../../firebase/db';
+import { View } from 'react-native';
 
 const RecentScans = () => {
 	const theme = useTheme();
@@ -42,7 +43,7 @@ const RecentScans = () => {
 			<SafeAreaView style={{ ...helpers.p10, backgroundColor: theme.colors.background }}>
 				<PageTitle>Recent Scans</PageTitle>
 				<ScrollView style={{ ...helpers.mb20, height: SCREEN_HEIGHT }}>
-					{fbUser?.recentScans && Object.values(fbUser.recentScans).sort(sortHelpers.last_scanned_sort).map((scannedItem: any) => {
+					{fbUser?.recentScans && (Object.values(fbUser.recentScans).length > 0 ? Object.values(fbUser.recentScans).sort(sortHelpers.last_scanned_sort).map((scannedItem: any) => {
 						return (
 							<Swipeable
 								key={scannedItem.name}
@@ -52,12 +53,12 @@ const RecentScans = () => {
 								renderRightActions={RenderRight}
 								onSwipeableWillOpen={async () => {
 									setFetchingData(true);
-									const newRecentScans = fbUser.recentScans;
+									const updatedData = { ...fbUser };
 
-									delete newRecentScans[scannedItem.barcode];
+									delete updatedData.recentScans[scannedItem.barcode];
 
 									if (user?.uid) {
-										await modifyRecentScans(user.uid, newRecentScans, false)
+										await modifyRecentScans(user.uid, updatedData, false);
 									} else {
 										alert('Error deleting entry!');
 									}
@@ -74,7 +75,7 @@ const RecentScans = () => {
 								></RecentScanCard>
 							</Swipeable>
 						);
-					})}
+					}) : <View style={{ ...general.center, alignItems: 'center', height: SCREEN_HEIGHT - 150 }}><Text>Use the 'Scanner tab' to start your scanning journie!</Text></View>)}
 				</ScrollView>
 				{prod?.title && <ScannedItemInfoSheet product={prod} />}
 				<Portal>

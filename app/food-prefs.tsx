@@ -139,7 +139,7 @@ const FoodPrefSelection = () => {
 	return (
 		<SafeAreaView style={{ ...helpers.p10, backgroundColor: theme.colors.background }}>
 			<PageTitle>Food Prefs.</PageTitle>
-			<ScrollView style={{ ...foodPrefStyles.container, height: SCREEN_HEIGHT }}>
+			<ScrollView style={foodPrefStyles.container}>
 				{!newUser && (
 					<Button onPress={resetPreferences} mode='text' icon='restart' style={{
 						...helpers.mx10,
@@ -248,12 +248,12 @@ const FoodPrefSelection = () => {
 					{snackObj.msg}
 				</Snackbar>
 			</Portal>
-			<View style={{  }}>
+			<View style={{ marginBottom: 10 }}>
 				<View style={{ backgroundColor: theme.colors.background }}>
 					{!newUser && (
 						<Button
 							icon="chevron-left"
-							mode="text"
+							mode="contained"
 							onPress={() => router.back()}
 							labelStyle={foodPrefStyles.bottomBarButtonLabel}
 						>
@@ -264,7 +264,7 @@ const FoodPrefSelection = () => {
 				<View>
 					{newUser && (
 						<Button
-							mode="text"
+							mode="contained"
 							onPress={() => router.replace('/(app)/recent-scans')}
 							labelStyle={{  ...foodPrefStyles.bottomBarButtonLabel, alignSelf: 'flex-end' }}
 							icon="chevron-right"
