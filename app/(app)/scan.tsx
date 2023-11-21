@@ -90,7 +90,7 @@ const Scan = () => {
 					<Modal
 						visible={showModal}
 						onDismiss={() => setShowModal(false)}
-						contentContainerStyle={{ ...helpers.p20, backgroundColor: 'white', margin: 20, borderRadius: 10 }}
+						contentContainerStyle={{ ...helpers.p20, backgroundColor: 'black', margin: 20, borderRadius: 10 }}
 					>
 						<Text>No Product Found!</Text>
 						<Button mode='contained' onPress={() => setShowModal(false)} style={{ marginTop: 20, marginHorizontal: 10 }}>Got it</Button>
