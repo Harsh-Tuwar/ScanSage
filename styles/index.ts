@@ -30,6 +30,12 @@ export const helpers = StyleSheet.create({
 	m10: {
 		margin: 10
 	},
+	m15: {
+		margin: 15
+	},
+	m20: {
+		margin: 20
+	},
 	mx5: {
 		marginVertical: 5
 	},
@@ -95,7 +101,6 @@ export const foodPrefStyles = StyleSheet.create({
 		flexDirection: 'row',
 		paddingHorizontal: 10,
 		marginHorizontal: -10,
-		backgroundColor: 'tomato',
 		justifyContent: 'space-between'
 	},
 	bottomBarButtonLabel: {

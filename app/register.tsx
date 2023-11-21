@@ -1,6 +1,6 @@
 import { KeyboardAvoidingView, Text, View } from 'react-native';
 import { registerStyles, helpers } from '../styles';
-import { HelperText, Portal, Snackbar, TextInput } from 'react-native-paper';
+import { HelperText, Portal, Snackbar, TextInput, useTheme } from 'react-native-paper';
 import { Formik, FormikHelpers } from 'formik';
 import { Button } from 'react-native-paper';
 import { router } from 'expo-router';
@@ -42,6 +42,7 @@ interface RegisterFormValues {
 }
 
 const Register = () => {
+	const theme = useTheme();
 	const [showPassword, setShowPassword] = useState(false);
 	const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 	const [snackObj, setSnackObj] = useState({ msg: '', visible: false });
@@ -79,9 +80,9 @@ const Register = () => {
 	}
 
 	return (
-		<View style={{ ...helpers.f1, ...helpers.justifyContentCenter, ...helpers.p20 }}>
+		<View style={{ ...helpers.f1, ...helpers.justifyContentCenter, ...helpers.p20, backgroundColor: theme.colors.background }}>
 			<KeyboardAvoidingView behavior='padding'>
-				<Text style={{ ...registerStyles.registerLabel }}>Register</Text>
+				<Text style={{ ...registerStyles.registerLabel, color: theme.colors.onSurface }}>Register</Text>
 				<Formik
 					initialValues={{
 						name: '',

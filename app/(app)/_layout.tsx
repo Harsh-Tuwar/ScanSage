@@ -3,17 +3,21 @@ import Settings from './settings';
 import RecentScans from './recent-scans';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
+import { useTheme } from 'react-native-paper';
 
 const Tab = createMaterialBottomTabNavigator();
 
 const AppLayout = () => {
+	const theme = useTheme();
+
 	return (
 		<Tab.Navigator
+			theme={theme}
+			style={{
+				backgroundColor: theme.colors.background
+			}}
 			initialRouteName='Scan'
 			shifting={true}
-			barStyle={{
-				backgroundColor: 'tomato'
-			}}
 		>
 			<Tab.Screen
 				name="RecentScans"
