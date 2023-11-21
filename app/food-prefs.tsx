@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import { Text, List, Button, Portal, Snackbar } from 'react-native-paper';
+import { Text, List, Button, Portal, Snackbar, useTheme } from 'react-native-paper';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { helpers, foodPrefStyles } from '../styles';
+import { helpers, foodPrefStyles, SCREEN_HEIGHT } from '../styles';
 import { ScrollView } from 'react-native-gesture-handler';
 import * as fbDb from '../firebase/db';
 
@@ -85,6 +85,7 @@ const defaultSelection: PrefSelection = {
 };
 
 const FoodPrefSelection = () => {
+	const theme = useTheme();
 	const { user, fbUser } = useUser();
 	const [snackObj, setSnackObj] = useState({ visible: false, msg: '' });
 	const [prefSelection, setPrefSelection] = useState(defaultSelection);
@@ -136,9 +137,9 @@ const FoodPrefSelection = () => {
 	};
 
 	return (
-		<SafeAreaView style={helpers.m10}>
+		<SafeAreaView style={{ ...helpers.p10, backgroundColor: theme.colors.background }}>
 			<PageTitle>Food Prefs.</PageTitle>
-			<ScrollView style={foodPrefStyles.container}>
+			<ScrollView style={{ ...foodPrefStyles.container, height: SCREEN_HEIGHT }}>
 				{!newUser && (
 					<Button onPress={resetPreferences} mode='text' icon='restart' style={{
 						...helpers.mx10,
@@ -235,6 +236,7 @@ const FoodPrefSelection = () => {
 			</ScrollView>
 			<Portal>
 				<Snackbar
+					theme={theme}
 					visible={snackObj.visible}
 					duration={1000}
 					action={{
@@ -246,8 +248,8 @@ const FoodPrefSelection = () => {
 					{snackObj.msg}
 				</Snackbar>
 			</Portal>
-			<View style={foodPrefStyles.bottomBar}>
-				<View>
+			<View style={{  }}>
+				<View style={{ backgroundColor: theme.colors.background }}>
 					{!newUser && (
 						<Button
 							icon="chevron-left"

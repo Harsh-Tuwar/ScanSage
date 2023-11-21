@@ -1,5 +1,5 @@
 import { signOut } from 'firebase/auth';
-import { List, Divider } from 'react-native-paper';
+import { List, Divider, useTheme } from 'react-native-paper';
 import { FIREBASE_AUTH } from '../../firebase/FBConfig';
 import { router } from 'expo-router';
 import { SCREEN_HEIGHT, helpers } from '../../styles';
@@ -11,6 +11,7 @@ import { TouchableOpacity } from 'react-native';
 import packageJson from '../../package.json';
 
 const Settings = () => {
+	const theme = useTheme();
 	const { fbUser } = useUser();
 
 	const logout = async () => {
@@ -19,7 +20,7 @@ const Settings = () => {
 	};
 
 	return (
-		<SafeAreaView style={{ ...helpers.m10 }}>
+		<SafeAreaView style={{ ...helpers.p10, backgroundColor: theme.colors.background }}>
 			<PageTitle>Settings</PageTitle>
 			<ScrollView style={{ ...helpers.mb20, height: SCREEN_HEIGHT }}>
 				<List.Section>
@@ -30,14 +31,15 @@ const Settings = () => {
 					}}>
 						<List.Item title="Dietary Preferences" description="Choose what information about food matters most to you" left={() => <List.Icon icon="food-variant" />} />
 					</TouchableOpacity>
-					<TouchableOpacity onPress={() => console.log('show update theme modal')}>
+					{/* TODO: Make this work */}
+					{/* <TouchableOpacity onPress={() => console.log('show update theme modal')}>
 						<List.Item title="Theme" description="Light" left={() => <List.Icon icon="theme-light-dark" />} />
-					</TouchableOpacity>
+					</TouchableOpacity> */}
 				</List.Section>
 				<List.Section>
 					<List.Subheader>General</List.Subheader>
 					<Divider bold />
-					<TouchableOpacity onPress={() => { console.log('wip')}}>
+					<TouchableOpacity onPress={() => { console.log('wip') }}>
 						<List.Item title="Account" description={fbUser?.name ?? 'Unknown User'} left={() => <List.Icon icon="account" />} />
 					</TouchableOpacity>
 					<TouchableOpacity onPress={() => { }}>

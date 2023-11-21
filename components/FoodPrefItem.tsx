@@ -1,7 +1,7 @@
 import { View } from 'react-native';
 import { helpers } from '../styles';
 import React, { PropsWithChildren, useState } from 'react';
-import { Text, Divider, RadioButton, Portal, Modal, Icon, Button } from 'react-native-paper';
+import { Text, Divider, RadioButton, Portal, Modal, Icon, Button, useTheme } from 'react-native-paper';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 
 interface FoodPrepItemProps extends PropsWithChildren {
@@ -12,10 +12,11 @@ interface FoodPrepItemProps extends PropsWithChildren {
 }
 
 const FoodPrefItem = ({ title, modalContent, selectedValue, setValue }: FoodPrepItemProps) => {
+	const theme = useTheme();
 	const [showModal, setShowModal] = useState(false);
 
 	return (
-		<View style={{ ...helpers.p5 }}>
+		<View style={{ ...helpers.p5, backgroundColor: theme.colors.background }}>
 			<View style={{ flex: 1, flexDirection: 'row' }}>
 				<Text variant='titleMedium' style={{ flex: 2 }}>{title}</Text>
 				{modalContent && <TouchableOpacity onPress={() => setShowModal(true)}>
@@ -33,12 +34,13 @@ const FoodPrefItem = ({ title, modalContent, selectedValue, setValue }: FoodPrep
 			</RadioButton.Group>
 			<Portal>
 				<Modal
+					theme={theme}
 					visible={showModal}
 					onDismiss={() => setShowModal(false)}
-					contentContainerStyle={{ ...helpers.p20, backgroundColor: 'white', margin: 20, borderRadius: 10 }}
+					contentContainerStyle={{ ...helpers.p20, backgroundColor: theme.dark ? 'black' : 'white', margin: 20, borderRadius: 10 }}
 				>
-					<Text>{modalContent}</Text>
-					<Button mode='contained' onPress={() => setShowModal(false)} style={{ marginTop: 20, marginHorizontal: 10 }}>Got it</Button>
+					<Text theme={theme}>{modalContent}</Text>
+					<Button theme={theme} mode='contained' onPress={() => setShowModal(false)} style={{ marginTop: 20, marginHorizontal: 10 }}>Got it</Button>
 				</Modal>
 			</Portal>
 		</View>
