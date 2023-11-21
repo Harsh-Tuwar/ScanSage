@@ -77,7 +77,7 @@ export const registerStyles = StyleSheet.create({
 export const foodPrefStyles = StyleSheet.create({
 	container: {
 		marginHorizontal: 10,
-		height: SCREEN_HEIGHT - 70,
+		height: SCREEN_HEIGHT - 150
 	},
 	title: {
 		fontSize: 18,
@@ -98,7 +98,6 @@ export const foodPrefStyles = StyleSheet.create({
 		justifyContent: 'space-between'
 	},
 	bottomBarButtonLabel: {
-		color: 'black',
 		fontSize: 16
 	}
 });

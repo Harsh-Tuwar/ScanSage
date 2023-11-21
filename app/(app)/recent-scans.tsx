@@ -52,12 +52,12 @@ const RecentScans = () => {
 								renderRightActions={RenderRight}
 								onSwipeableWillOpen={async () => {
 									setFetchingData(true);
-									const newRecentScans = fbUser.recentScans;
+									const updatedData = { ...fbUser };
 
-									delete newRecentScans[scannedItem.barcode];
+									delete updatedData.recentScans[scannedItem.barcode];
 
 									if (user?.uid) {
-										await modifyRecentScans(user.uid, newRecentScans, false)
+										await modifyRecentScans(user.uid, updatedData, false);
 									} else {
 										alert('Error deleting entry!');
 									}
