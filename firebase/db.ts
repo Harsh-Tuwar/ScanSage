@@ -1,5 +1,6 @@
 import { User } from 'firebase/auth';
 import { FIREBASE_DB } from './FBConfig';
+import { updateUserProfile } from './auth';
 import { setDoc, doc, updateDoc } from 'firebase/firestore';
 import { FB_USER_COLLECTION_STRING } from '../constants';
 
@@ -79,3 +80,19 @@ export const updateRecentScans = async (userId: string, recentScans: any) => {
 	}
 };
 
+export const modifyUserInfo = async (user: User, userData: any) => {
+	try {
+		const updateObj: any = {};
+
+		if (userData.hasOwnProperty('name')) {
+			updateObj['name'] = userData.name
+		};
+
+		await updateDoc(doc(FIREBASE_DB, FB_USER_COLLECTION_STRING, user.uid), updateObj);
+		await updateUserProfile(user, {
+			displayName: userData.name
+		});
+	} catch (err) {
+		console.log('Error in firebase/db/modifyUserInfo: ', err);
+	}
+}

@@ -1,28 +1,21 @@
 import React from 'react';
-import { KeyboardAvoidingView, StyleSheet, View } from 'react-native';
+import { KeyboardAvoidingView, SafeAreaView, StyleSheet, View, Image } from 'react-native';
 import { Link, router } from 'expo-router';
-import { IconButton, Text, TextInput } from 'react-native-paper';
-import { helpers } from '../styles';
+import { Button, IconButton, Text, TextInput, useTheme } from 'react-native-paper';
+import { SCREEN_HEIGHT, helpers, general } from '../styles';
 import PageTitle from '../components/PageTitle';
 import { useUser } from '../context/UserContext';
 
 // TODO: Finish this component
 
 const ModifyUserModal = () => {
+	const theme = useTheme();
 	const { user } = useUser();
 
 	return (
-		<View style={helpers.m10}>
-			<View style={{ flexDirection: 'row' }}>
-				<PageTitle>Update Profile</PageTitle>
-				<View style={{ flexGrow: 1 }}></View>
-				<IconButton
-					icon="close-circle"
-					size={32}
-					onPress={() => router.back()}
-				/>
-			</View>
-			<KeyboardAvoidingView behavior='padding' style={{ padding: 10 }}>
+		<SafeAreaView style={{ ...helpers.p10, backgroundColor: theme.colors.background, height: SCREEN_HEIGHT - 40 }}>
+			<PageTitle>Update Profile</PageTitle>
+			<KeyboardAvoidingView behavior='padding' style={{ padding: 10, ...helpers.f1, ...helpers.mt20 }}>
 				<TextInput
 					label="Name"
 					mode='outlined'
@@ -40,7 +33,27 @@ const ModifyUserModal = () => {
 					// onChangeText={text => setEmail(text)}
 				/>
 			</KeyboardAvoidingView>
-		</View>
+			<View style={{ flexDirection: 'row' }}>
+				<Button
+					style={{ ...helpers.my10, flex: 1 }}
+					mode="outlined"
+					onPress={() => router.back()}
+					labelStyle={{ alignSelf: 'flex-end' }}
+					icon="arrow-left-thick"
+				>
+					Back
+				</Button>
+				<Button
+					style={{ ...helpers.my10, flex: 1 }}
+					mode="contained"
+					onPress={() => router.replace('/(app)/recent-scans')}
+					labelStyle={{ alignSelf: 'flex-end' }}
+					icon="check"
+				>
+					Save
+				</Button>
+			</View>
+		</SafeAreaView>
 	);
 }
 
