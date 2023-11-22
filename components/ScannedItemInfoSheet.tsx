@@ -90,11 +90,11 @@ const ScannedItemInfoSheet = ({
 															key={tag}
 															icon={() => <MaterialCommunityIcons name={tagIcon} size={24} />}
 															compact
+															style={helpers.m5}
 															onPress={() => {
 																setSelectedModalTag(tag);
 																setShowIngModal(true);
 															}}
-															style={helpers.m5}
 														>{finalizedTagString}</Chip>
 													);
 												})}

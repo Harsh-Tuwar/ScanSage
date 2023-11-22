@@ -1,9 +1,10 @@
-import React from 'react'
+import React from 'react';
 import { View } from 'react-native'
 import * as utils from '../../utils';
 import { helpers } from '../../styles';
-import { Ingredient } from '../../api/api-types'
-import { Card, Divider, Icon, Text as RNPText } from 'react-native-paper';
+import { Ingredient } from '../../api/api-types';
+import { ADDITIVES_MAP } from '../../constants/additives';
+import { Card, Chip, Divider, Icon, Text as RNPText } from 'react-native-paper';
 
 interface ProductIngredientsProps {
 	ingredients: Ingredient[];
@@ -16,7 +17,7 @@ const ProductIngredients = ({
 	allergens,
 	additives
 }: ProductIngredientsProps) => {
-	const prepAllergenString = (allergenString: string) => {
+	const getSanitizedString = (allergenString: string) => {
 		const allergen = allergenString.split(':')[1];
 		const sanitizedString = allergen.replaceAll(/[&\/\\#, +()$~%.'":*?<>{}]/g, '_');
 
@@ -42,7 +43,7 @@ const ProductIngredients = ({
 						<RNPText variant='bodyLarge'>😵 Allergens:</RNPText>
 						<Divider style={{...helpers.mx10 }} />
 						<View style={{ flexDirection: 'row' }}>
-							{allergens.map((item, index) => <RNPText key={item}>{prepAllergenString(item)}{index === allergens.length - 1 ? '' : ', '}</RNPText>)}
+							{allergens.map((item, index) => <RNPText key={item}>{getSanitizedString(item)}{index === allergens.length - 1 ? '' : ', '}</RNPText>)}
 						</View>
 					</View>
 				)}
@@ -50,8 +51,12 @@ const ProductIngredients = ({
 					<View style={{ ...helpers.mt20 }}>
 						<RNPText variant='bodyLarge'>⚗️ Additives:</RNPText>
 						<Divider style={{...helpers.mx10 }} />
-						<View style={{ flexDirection: 'row' }}>
-							{additives.map((item, index) => <RNPText key={item}>{prepAllergenString(item)}{index === additives.length - 1 ? '' : ', '}</RNPText>)}
+						<View style={{ flexDirection: 'row', flexWrap: 'wrap' }}>
+							{additives.map((item) => (
+								<Chip compact style={helpers.m5} key={item}>
+									<RNPText style={{ flexWrap: 'wrap' }}>{getSanitizedString(item)} - {ADDITIVES_MAP[`${getSanitizedString(item)}`]}</RNPText>
+								</Chip>
+							))}
 						</View>
 					</View>
 				)}

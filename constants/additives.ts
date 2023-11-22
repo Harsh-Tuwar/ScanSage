@@ -1,4 +1,4 @@
-export const ADDITIVES_MAP = {
+export const ADDITIVES_MAP: { [key: string]: string } = {
 	// E100–E199 (colours)
 	"E100": "Curcumin (from turmeric)",
 	"E101": "Riboflavin (Vitamin B2), formerly called lactoflavin",
