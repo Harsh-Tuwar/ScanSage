@@ -25,9 +25,9 @@ const ProductNutriments = ({
 					}
 
 					return (
-						<View style={{ flexDirection: 'row', justifyContent: 'space-between' }} key={key}>
-							<Text variant="bodyMedium" style={{ fontWeight: 'bold' }}>{label}</Text>
-							<Text variant="bodyMedium">{itemValue}</Text>
+						<View style={{ flex: 1, flexDirection: 'row', }} key={key}>
+							<Text variant="bodyMedium" style={{ fontWeight: 'bold', flex: 4, flexWrap: 'wrap' }}>{label}</Text>
+							<Text variant="bodyMedium" style={{ flex: 1, alignItems: 'flex-end' }}>{typeof itemValue === 'number' ? parseFloat(String(itemValue)).toFixed(2) : itemValue}</Text>
 						</View>
 					)
 				})}

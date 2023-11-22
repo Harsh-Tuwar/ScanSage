@@ -132,6 +132,7 @@ export interface UnknownIngredientsAnalysis {
 export interface FoodFactsProduct {
 	code: string;
 	title: string;
+	additives_tags: string[];
 	allergens_tags: string[];
 	nutriments: Nutriments;
 	images: SelectedImages;

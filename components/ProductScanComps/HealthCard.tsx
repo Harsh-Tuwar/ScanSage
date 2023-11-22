@@ -26,7 +26,7 @@ const HealthCard = ({
 						const nutriLevelItemStr = scan.getKeyValue_FromNutriLevel(nutriItem, nutriLevelItem, nutriments);
 
 						return (
-							<TouchableOpacity style={helpers.m5} key={nutriItem}>
+							<TouchableOpacity style={{ ...helpers.m5 }} key={nutriItem}>
 								<Chip
 									icon={() => <MaterialCommunityIcons name="circle" color={scan.getNutrilevelColor(nutriLevelItem)} size={26} />}
 									compact

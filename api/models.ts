@@ -349,6 +349,7 @@ export const _getEmptyProduct = (): FoodFactsProduct => {
 		nutriscore_grade: '',
 		nutriscore_score: '',
 		allergens_tags: [],
+		additives_tags: [],
 		unknownIngredients: {
 			unknownContentPalmOil: [],
 			unknownContentVeg: [],
@@ -407,6 +408,7 @@ export const _rawProductToProduct = (_rawResponse: any): FoodFactsProduct => {
 	product.ingredients_analysis_tags = rawRespProductData.ingredients_analysis_tags ?? [];
 	product.ingredients_tags = rawRespProductData.ingredients_tags ?? [];
 	product.allergens_tags = rawRespProductData.allergens_tags ?? [];
+	product.additives_tags = rawRespProductData.additives_tags ?? [];
 	product.unknownIngredients = _rawUnknownIngresToProdUnknownIngres(rawRespProductData.ingredients_analysis);
 
 	if (rawRespProductData.hasOwnProperty('nutrient_levels')) {
