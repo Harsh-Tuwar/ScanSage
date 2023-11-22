@@ -96,3 +96,5 @@ export const modifyUserInfo = async (user: User, userData: any) => {
 		console.log('Error in firebase/db/modifyUserInfo: ', err);
 	}
 }
+
+export const refetchFbUserData = upsertFoodPreferences;

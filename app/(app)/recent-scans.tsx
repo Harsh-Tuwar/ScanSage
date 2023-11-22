@@ -13,11 +13,12 @@ import ScannedItemInfoSheet from '../../components/ScannedItemInfoSheet';
 import { sortHelpers } from '../../utils';
 import { Button, Modal, Portal, Text, useTheme } from 'react-native-paper';
 import RenderRight from '../../components/AnimatedRightButton';
-import { updateRecentScans } from '../../firebase/db';
-import { View } from 'react-native';
+import { refetchFbUserData, updateRecentScans } from '../../firebase/db';
+import { View, RefreshControl } from 'react-native';
 
 const RecentScans = () => {
 	const theme = useTheme();
+	const [refreshing, setRefreshing] = React.useState(false);
 	const { fbUser, user} = useUser();
 	const [fetchingData, setFetchingData] = useState(false);
 	const [prod, setProd] = useState<null | FoodFactsProduct>(null);
@@ -37,11 +38,23 @@ const RecentScans = () => {
 		setFetchingData(false);
 	};
 
+	const onRefresh = React.useCallback(async () => {
+		setRefreshing(true);
+
+		// method to refresh recent scans
+		await refetchFbUserData(user?.uid ?? '', fbUser?.foodPrefs ?? {});
+
+		setRefreshing(false);
+	}, []);
+
 	return (
 		fetchingData ? <CenterLoader /> : (
 			<SafeAreaView style={{ ...helpers.p10, backgroundColor: theme.colors.background }}>
 				<PageTitle>Recent Scans</PageTitle>
-				<ScrollView style={{ ...helpers.mb20, height: SCREEN_HEIGHT }}>
+				<ScrollView
+					style={{ ...helpers.mb20, height: SCREEN_HEIGHT }}
+					refreshControl={<RefreshControl refreshing={refreshing} onRefresh={onRefresh} />}
+				>
 					{fbUser?.recentScans && (Object.values(fbUser.recentScans).length > 0 ? Object.values(fbUser.recentScans).sort(sortHelpers.last_scanned_sort).map((scannedItem: any) => {
 						return (
 							<Swipeable
