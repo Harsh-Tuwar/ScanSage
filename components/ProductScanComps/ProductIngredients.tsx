@@ -7,12 +7,14 @@ import { Card, Divider, Icon, Text as RNPText } from 'react-native-paper';
 
 interface ProductIngredientsProps {
 	ingredients: Ingredient[];
-	allergens: string[]
+	allergens: string[];
+	additives: string[];
 }
 
 const ProductIngredients = ({
 	ingredients,
-	allergens
+	allergens,
+	additives
 }: ProductIngredientsProps) => {
 	const prepAllergenString = (allergenString: string) => {
 		const allergen = allergenString.split(':')[1];
@@ -41,6 +43,15 @@ const ProductIngredients = ({
 						<Divider style={{...helpers.mx10 }} />
 						<View style={{ flexDirection: 'row' }}>
 							{allergens.map((item, index) => <RNPText>{prepAllergenString(item)}{index === allergens.length - 1 ? '' : ', '}</RNPText>)}
+						</View>
+					</View>
+				)}
+				{additives.length > 0 && (
+					<View style={{ ...helpers.mt20 }}>
+						<RNPText variant='bodyLarge'>⚗️ Additives:</RNPText>
+						<Divider style={{...helpers.mx10 }} />
+						<View style={{ flexDirection: 'row' }}>
+							{additives.map((item, index) => <RNPText>{prepAllergenString(item)}{index === additives.length - 1 ? '' : ', '}</RNPText>)}
 						</View>
 					</View>
 				)}

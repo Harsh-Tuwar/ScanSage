@@ -70,7 +70,7 @@ const ScannedItemInfoSheet = ({
 
 								{/* Ingredients */}
 								{product.ingredients.length > 0 && (
-									<ProductIngredients ingredients={product.ingredients} allergens={product.allergens_tags} />
+									<ProductIngredients ingredients={product.ingredients} allergens={product.allergens_tags} additives={product.additives_tags} />
 								)}
 
 								{/* Ingredients Analysis */}
