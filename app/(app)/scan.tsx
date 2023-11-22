@@ -1,6 +1,6 @@
 import { general, helpers } from '../../styles';
 import { useState, useEffect } from 'react'
-import { modifyRecentScans } from '../../firebase/db';
+import { captureNotFoundProd, modifyRecentScans } from '../../firebase/db';
 import { useUser } from '../../context/UserContext';
 import { View, StyleSheet } from 'react-native'
 import * as API from '../../api/openFoodFactsService';
@@ -57,6 +57,7 @@ const Scan = () => {
 		if (prod.title !== '') {
 			void modifyRecentScans(user?.uid ?? '', recentScanPayload, true);
 		} else {
+			void captureNotFoundProd(barcode);
 			setShowModal(true);
 		}
 

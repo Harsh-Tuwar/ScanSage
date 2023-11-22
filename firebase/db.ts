@@ -1,8 +1,9 @@
 import { User } from 'firebase/auth';
 import { FIREBASE_DB } from './FBConfig';
 import { updateUserProfile } from './auth';
-import { setDoc, doc, updateDoc } from 'firebase/firestore';
-import { FB_USER_COLLECTION_STRING } from '../constants';
+import { setDoc, doc, updateDoc, addDoc, collection, getDoc, increment } from 'firebase/firestore';
+import { FB_USER_COLLECTION_STRING, NOT_FOUND_PRODUCTS_STRING } from '../constants';
+import moment from 'moment';
 
 export const createUserInformation = async (userInfo: User) => {
 	try {
@@ -95,6 +96,28 @@ export const modifyUserInfo = async (user: User, userData: any) => {
 	} catch (err) {
 		console.log('Error in firebase/db/modifyUserInfo: ', err);
 	}
-}
+};
+
+export const captureNotFoundProd = async (barcode: string) => {
+	try {
+		const docRef = doc(FIREBASE_DB, NOT_FOUND_PRODUCTS_STRING, barcode);
+		const docToCreate = await getDoc(docRef);
+
+		if (docToCreate.exists()) {
+			await updateDoc(docRef, {
+				requestedCount: increment(1),
+				lastRequested: moment().utc().toISOString()
+			});
+		} else {
+			await setDoc(docRef, {
+				barcode,
+				requestedCount: 1,
+				lastRequested: moment().utc().toISOString()
+			});
+		}
+	} catch (err) {
+		console.log('Error in firebase/db/captureNotFoundProd: ', err);
+	}
+};
 
 export const refetchFbUserData = upsertFoodPreferences;
