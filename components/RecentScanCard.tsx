@@ -20,10 +20,10 @@ const RecentScanCard = ({
 	lastScanned,
 	onProdSelect
 }: RecentScanCardProps) => {
-	const getTimestring = (gmtString: string) => {
-		const dt = moment(gmtString, 'ddd, DD MMM YYYY HH:mm:ss z');
+	const getTimestring = (utcTimestamp: string) => {
+		const dt = moment(utcTimestamp).local(true).fromNow();
 
-		return dt.fromNow();
+		return dt;
 	}
 
 	return (

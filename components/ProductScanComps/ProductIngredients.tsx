@@ -7,11 +7,20 @@ import { Card, Divider, Icon, Text as RNPText } from 'react-native-paper';
 
 interface ProductIngredientsProps {
 	ingredients: Ingredient[];
+	allergens: string[]
 }
 
 const ProductIngredients = ({
-	ingredients
+	ingredients,
+	allergens
 }: ProductIngredientsProps) => {
+	const prepAllergenString = (allergenString: string) => {
+		const allergen = allergenString.split(':')[1];
+		const sanitizedString = allergen.replaceAll(/[&\/\\#, +()$~%.'":*?<>{}]/g, '_');
+
+		return utils.uppercaseFirstLetter(sanitizedString);
+	};
+
 	return (
 		<Card style={{ margin: 10 }}>
 			<Card.Content>
@@ -26,6 +35,15 @@ const ProductIngredients = ({
 						return <RNPText key={ings.id}>{utils.uppercaseFirstLetter(ings.text)}{ingredients.length - 1 === index ? '' : ', '}</RNPText>
 					})}
 				</View>
+				{allergens.length > 0 && (
+					<View style={{ ...helpers.mt20 }}>
+						<RNPText variant='bodyLarge'>😵 Allergens:</RNPText>
+						<Divider style={{...helpers.mx10 }} />
+						<View style={{ flexDirection: 'row' }}>
+							{allergens.map((item, index) => <RNPText>{prepAllergenString(item)}{index === allergens.length - 1 ? '' : ', '}</RNPText>)}
+						</View>
+					</View>
+				)}
 			</Card.Content>
 		</Card>
 	);

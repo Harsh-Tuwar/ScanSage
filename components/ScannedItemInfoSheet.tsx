@@ -70,7 +70,7 @@ const ScannedItemInfoSheet = ({
 
 								{/* Ingredients */}
 								{product.ingredients.length > 0 && (
-									<ProductIngredients ingredients={product.ingredients} />
+									<ProductIngredients ingredients={product.ingredients} allergens={product.allergens_tags} />
 								)}
 
 								{/* Ingredients Analysis */}
@@ -102,11 +102,6 @@ const ScannedItemInfoSheet = ({
 											<RNPText style={helpers.mx10}>The analysis is based solely on the ingredients listed and does not take into account processing methods</RNPText>
 										</Card.Content>
 									</Card>
-								)}
-
-								{/* Allergens */}
-								{product.allergens_tags.length > 0 && (
-									<ProductAllergens allergenTags={product.allergens_tags} />
 								)}
 
 								{/* Item Nutriments */}

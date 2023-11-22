@@ -2,14 +2,15 @@ import { general, helpers } from '../../styles';
 import { useState, useEffect } from 'react'
 import { modifyRecentScans } from '../../firebase/db';
 import { useUser } from '../../context/UserContext';
-import { View, Text, StyleSheet } from 'react-native'
+import { View, StyleSheet } from 'react-native'
 import * as API from '../../api/openFoodFactsService';
 import { BarCodeScanner } from 'expo-barcode-scanner';
 import { FoodFactsProduct } from '../../api/api-types';
 import CenterLoader from '../../components/CenterLoader';
 import ScannedItemInfoSheet from '../../components/ScannedItemInfoSheet';
 import BarcodeScannerOverlay from '../../components/BarcodeScannerOverlay';
-import { Button, Modal, Portal } from 'react-native-paper';
+import { Button, Modal, Portal, useTheme, Text } from 'react-native-paper';
+import moment from 'moment';
 
 enum CAMERA_FACING_ENUM {
 	FRONT = 1,
@@ -18,6 +19,7 @@ enum CAMERA_FACING_ENUM {
 
 
 const Scan = () => {
+	const theme = useTheme();
 	const { user } = useUser();
 	const [scanned, setScanned] = useState(false);
 	const [fetchingData, setFetchingData] = useState(false);
@@ -45,7 +47,7 @@ const Scan = () => {
 		const recentScanPayload = {} as any;
 		recentScanPayload[barcode] = {
 			barcode: barcode,
-			lastScanned: new Date().toUTCString(),
+			lastScanned: moment().utc().toISOString(),
 			img: prod.mainImg.image_front_thumb_url,
 			name: prod.title
 		};
@@ -92,8 +94,9 @@ const Scan = () => {
 						onDismiss={() => setShowModal(false)}
 						contentContainerStyle={{ ...helpers.p20, backgroundColor: 'black', margin: 20, borderRadius: 10 }}
 					>
-						<Text>No Product Found!</Text>
-						<Button mode='contained' onPress={() => setShowModal(false)} style={{ marginTop: 20, marginHorizontal: 10 }}>Got it</Button>
+						<Text style={{ color: theme.colors.onBackground }}>No Product Found for the given Barcode! We'll find this product for you and will update the information soon! </Text>
+						<Text style={helpers.mx10}>Thanks for supporting.</Text>
+						<Button mode='contained' onPress={() => setShowModal(false)} style={{ marginTop: 20, marginHorizontal: 10 }}>Ok!</Button>
 					</Modal>
 				</Portal>
 			</>

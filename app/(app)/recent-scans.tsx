@@ -83,12 +83,13 @@ const RecentScans = () => {
 						onDismiss={() => setShowModal(false)}
 						contentContainerStyle={{ ...helpers.p20, backgroundColor: 'black', margin: 20, borderRadius: 10 }}
 					>
-						<Text>No Product Found!</Text>
+						<Text style={{ color: theme.colors.onBackground }}>No Product Found for the given Barcode! We'll find this product for you and will update the information soon! </Text>
+						<Text style={helpers.mx10}>Thanks for supporting.</Text>
 						<Button
 							mode='contained'
 							onPress={() => setShowModal(false)}
 							style={{ marginTop: 20, marginHorizontal: 10 }}
-						>Got it</Button>
+						>Ok!</Button>
 					</Modal>
 				</Portal>
 			</SafeAreaView>
