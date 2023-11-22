@@ -42,7 +42,7 @@ const ProductIngredients = ({
 						<RNPText variant='bodyLarge'>😵 Allergens:</RNPText>
 						<Divider style={{...helpers.mx10 }} />
 						<View style={{ flexDirection: 'row' }}>
-							{allergens.map((item, index) => <RNPText>{prepAllergenString(item)}{index === allergens.length - 1 ? '' : ', '}</RNPText>)}
+							{allergens.map((item, index) => <RNPText key={item}>{prepAllergenString(item)}{index === allergens.length - 1 ? '' : ', '}</RNPText>)}
 						</View>
 					</View>
 				)}
@@ -51,7 +51,7 @@ const ProductIngredients = ({
 						<RNPText variant='bodyLarge'>⚗️ Additives:</RNPText>
 						<Divider style={{...helpers.mx10 }} />
 						<View style={{ flexDirection: 'row' }}>
-							{additives.map((item, index) => <RNPText>{prepAllergenString(item)}{index === additives.length - 1 ? '' : ', '}</RNPText>)}
+							{additives.map((item, index) => <RNPText key={item}>{prepAllergenString(item)}{index === additives.length - 1 ? '' : ', '}</RNPText>)}
 						</View>
 					</View>
 				)}
