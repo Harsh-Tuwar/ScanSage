@@ -49,3 +49,5 @@ export const signUp = async (name: string, email: string, password: string): Pro
 		return err as string;
 	}
 }
+
+export const updateUserProfile = FbAuth.updateProfile;

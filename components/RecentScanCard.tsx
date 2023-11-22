@@ -1,9 +1,9 @@
-import React, { PropsWithChildren } from 'react';
-import { Card } from 'react-native-paper';
 import { Image } from 'expo-image';
-import { timeAgoString } from '../utils';
 import { helpers } from '../styles';
+import { Card } from 'react-native-paper';
+import React, { PropsWithChildren } from 'react';
 import { TouchableOpacity } from 'react-native-gesture-handler';
+import moment from 'moment';
 
 interface RecentScanCardProps extends PropsWithChildren {
 	barcode: string;
@@ -20,6 +20,12 @@ const RecentScanCard = ({
 	lastScanned,
 	onProdSelect
 }: RecentScanCardProps) => {
+	const getTimestring = (gmtString: string) => {
+		const dt = moment(gmtString, 'ddd, DD MMM YYYY HH:mm:ss z');
+
+		return dt.fromNow();
+	}
+
 	return (
 		<Card mode='elevated' style={helpers.m5}>
 			<TouchableOpacity onPress={() => onProdSelect(barcode)}>
@@ -27,7 +33,7 @@ const RecentScanCard = ({
 					subtitleStyle={{ fontSize: 10, marginLeft: 15 }}
 					titleStyle={{ marginLeft: 15 }}
 					title={title}
-					subtitle={timeAgoString(new Date(lastScanned))}
+					subtitle={getTimestring(lastScanned)}
 					left={(props) => <Image source={{ uri: imgUrl }} style={{
 						height: 64,
 						width: 64,
