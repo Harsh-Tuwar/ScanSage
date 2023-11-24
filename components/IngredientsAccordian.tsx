@@ -20,18 +20,18 @@ const IngredientsAccordian = ({
 			<FoodPrefItem
 				title='Vegan'
 				modalContent='To determine whether a product is vegan, we only rely on the list of ingredients.'
-				selectedValue={ingredients.vegan}
+				selectedValue={ingredients?.vegan ?? '0'}
 				setValue={(newValue) => { setIngredientSelection({ 'vegan': newValue }) }}
 			/>
 			<FoodPrefItem
 				title='Vegetarian'
 				modalContent='To determine whether a product is vegetarian, we only rely on the list of ingredients.'
-				selectedValue={ingredients.vegetarian}
+				selectedValue={ingredients?.vegetarian ?? '0'}
 				setValue={(newValue) => { setIngredientSelection({ 'vegetarian': newValue }) }}
 			/>
 			<FoodPrefItem
 				title='Palm oil free'
-				selectedValue={ingredients.palmOilFree}
+				selectedValue={ingredients?.palmOilFree ?? '0'}
 				setValue={(newValue) => { setIngredientSelection({ 'palmOilFree': newValue }) }}
 			/>
 		</FoodPrefAccordianItem>

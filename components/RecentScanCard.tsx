@@ -1,6 +1,7 @@
 import { Image } from 'expo-image';
 import { helpers } from '../styles';
-import { Card } from 'react-native-paper';
+import { View } from 'react-native';
+import { Text, Card, useTheme } from 'react-native-paper';
 import React, { PropsWithChildren } from 'react';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import moment from 'moment';
@@ -20,6 +21,7 @@ const RecentScanCard = ({
 	lastScanned,
 	onProdSelect
 }: RecentScanCardProps) => {
+	const theme = useTheme();
 	const getTimestring = (utcTimestamp: string) => {
 		const dt = moment(utcTimestamp).local(true).fromNow();
 
@@ -29,18 +31,22 @@ const RecentScanCard = ({
 	return (
 		<Card mode='elevated' style={helpers.m5}>
 			<TouchableOpacity onPress={() => onProdSelect(barcode)}>
-				<Card.Title
-					subtitleStyle={{ fontSize: 10, marginLeft: 15 }}
-					titleStyle={{ marginLeft: 15 }}
-					title={title}
-					subtitle={getTimestring(lastScanned)}
-					left={(props) => <Image source={{ uri: imgUrl }} style={{
-						height: 64,
-						width: 64,
-						marginLeft: -10,
-						borderRadius: 10
-					}} />}
-				/>
+				<View style={{ elevation: 2, borderRadius: 10, flexDirection: 'row', backgroundColor: theme.colors.inverseOnSurface, padding: 10 }}>
+					<View style={{ marginRight: 15 }}>
+						<Image source={{ uri: imgUrl }} style={{
+							height: 75,
+							width: 75,
+							borderRadius: 10
+						}} />
+					</View>
+					<View>
+						<View>
+							<Text style={{ marginBottom: 5, fontSize: 16 }}>{title}</Text>
+							<Text style={{ marginBottom: 6, fontSize: 12 }}>{getTimestring(lastScanned)}</Text>
+							<Text style={{ fontSize: 8 }}>Good Match</Text>
+						</View>
+					</View>
+				</View>
 			</TouchableOpacity>
 		</Card>
 	)

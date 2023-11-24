@@ -18,12 +18,12 @@ const FoodProcessingAccordian = ({
 		<FoodPrefAccordianItem title='Food Processing' id='5'>
 			<FoodPrefItem
 				title='No or little food processing (NOVA group)'
-				selectedValue={foodProcessing.noOrLittleProcessing}
+				selectedValue={foodProcessing?.noOrLittleProcessing ?? '1'}
 				setValue={(newValue) => { setFoodProcessingSelection({ 'noOrLittleProcessing': newValue }) }}
 			/>
 			<FoodPrefItem
 				title='No or fea additives'
-				selectedValue={foodProcessing.noOrFewAdditives}
+				selectedValue={foodProcessing?.noOrFewAdditives ?? '0'}
 				setValue={(newValue) => { setFoodProcessingSelection({ 'noOrFewAdditives': newValue }) }}
 			/>
 		</FoodPrefAccordianItem>
