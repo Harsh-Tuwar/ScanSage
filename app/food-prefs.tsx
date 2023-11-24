@@ -162,9 +162,9 @@ const FoodPrefSelection = () => {
 
 								const prefData = {
 									allergens: newPrefSelection,
-									foodPrecessing: prefSelection.foodPrecessing,
-									ingredients: prefSelection.ingredients,
-									nutriQuality: prefSelection.nutriQuality
+									foodPrecessing: prefSelection?.foodPrecessing ?? {},
+									ingredients: prefSelection?.ingredients ?? {},
+									nutriQuality: prefSelection?.nutriQuality ?? {}
 								};
 
 								await savePreferences(prefData);
@@ -180,9 +180,9 @@ const FoodPrefSelection = () => {
 								};
 
 								const prefData = {
-									allergens: prefSelection.allergens,
-									foodPrecessing: prefSelection.foodPrecessing,
-									ingredients: prefSelection.ingredients,
+									allergens: prefSelection?.allergens ?? {},
+									foodPrecessing: prefSelection?.foodPrecessing ?? {},
+									ingredients: prefSelection?.ingredients ?? {},
 									nutriQuality: newPrefSelection
 								};
 
@@ -201,9 +201,9 @@ const FoodPrefSelection = () => {
 
 								const prefData = {
 									ingredients: newPrefSelection,
-									allergens: prefSelection.allergens,
-									foodPrecessing: prefSelection.foodPrecessing,
-									nutriQuality: prefSelection.nutriQuality
+									allergens: prefSelection?.allergens ?? {},
+									foodPrecessing: prefSelection?.foodPrecessing ?? {},
+									nutriQuality: prefSelection?.nutriQuality ?? {}
 								};
 
 								await savePreferences(prefData);
@@ -220,10 +220,10 @@ const FoodPrefSelection = () => {
 								};
 
 								const prefData = {
-									ingredients: prefSelection.ingredients,
-									allergens: prefSelection.allergens,
+									ingredients: prefSelection?.ingredients ?? {},
+									allergens: prefSelection?.allergens ?? {},
 									foodPrecessing: newPrefSelection,
-									nutriQuality: prefSelection.nutriQuality
+									nutriQuality: prefSelection?.nutriQuality ?? {}
 								};
 
 								await savePreferences(prefData);

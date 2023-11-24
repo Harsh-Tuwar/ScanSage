@@ -56,67 +56,67 @@ const AllergensAccordian = ({ allergens, setAllergenSelection }: AllergensAccord
 			</Banner>
 			<FoodPrefItem
 				title='Without Gluten'
-				selectedValue={allergens.withoutGluten}
+				selectedValue={allergens?.withoutGluten ?? '0'}
 				setValue={(newValue) => { setAllergenSelection({ 'withoutGluten': newValue }) }}
 			/>
 			<FoodPrefItem
 				title='Without Milk'
-				selectedValue={allergens.withoutMilk}
+				selectedValue={allergens?.withoutMilk ?? '0'}
 				setValue={(newValue) => { setAllergenSelection({ 'withoutMilk': newValue }) }}
 			/>
 			<FoodPrefItem
 				title='Without Eggs'
-				selectedValue={allergens.withoutEggs}
+				selectedValue={allergens?.withoutEggs ?? '0'}
 				setValue={(newValue) => { setAllergenSelection({ 'withoutEggs': newValue }) }}
 			/>
 			<FoodPrefItem
 				title='Without Nuts'
-				selectedValue={allergens.withoutNuts}
+				selectedValue={allergens?.withoutNuts ?? '0'}
 				setValue={(newValue) => { setAllergenSelection({ 'withoutNuts': newValue }) }}
 			/>
 			<FoodPrefItem
 				title='Without Peanuts'
-				selectedValue={allergens.withoutPeanuts}
+				selectedValue={allergens?.withoutPeanuts ?? '0'}
 				setValue={(newValue) => { setAllergenSelection({ 'withoutPeanuts': newValue }) }}
 			/>
 			<FoodPrefItem
 				title='Without Sesame Seeds'
-				selectedValue={allergens.withoutSesameSeeds}
+				selectedValue={allergens?.withoutSesameSeeds ?? '0'}
 				setValue={(newValue) => { setAllergenSelection({ 'withoutSesameSeeds': newValue }) }}
 			/>
 			<FoodPrefItem
 				title='Without Soybeans'
-				selectedValue={allergens.withoutSoyabeans}
+				selectedValue={allergens?.withoutSoyabeans ?? '0'}
 				setValue={(newValue) => { setAllergenSelection({ 'withoutSoyabeans': newValue }) }}
 			/>
 			<FoodPrefItem
 				title='Without Celery'
-				selectedValue={allergens.withoutCelery}
+				selectedValue={allergens?.withoutCelery ?? '0'}
 				setValue={(newValue) => { setAllergenSelection({ 'withoutCelery': newValue }) }}
 			/>
 			<FoodPrefItem
 				title='Without Mustard'
-				selectedValue={allergens.withoutMustard}
+				selectedValue={allergens?.withoutMustard ?? '0'}
 				setValue={(newValue) => { setAllergenSelection({ 'withoutMustard': newValue }) }}
 			/>
 			<FoodPrefItem
 				title='Without Lupin'
-				selectedValue={allergens.withoutLupin}
+				selectedValue={allergens?.withoutLupin ?? '0'}
 				setValue={(newValue) => { setAllergenSelection({ 'withoutLupin': newValue }) }}
 			/>
 			<FoodPrefItem
 				title='Without Fish'
-				selectedValue={allergens.withoutFish}
+				selectedValue={allergens?.withoutFish ?? '0'}
 				setValue={(newValue) => { setAllergenSelection({ 'withoutFish': newValue }) }}
 			/>
 			<FoodPrefItem
 				title='Without Crustaceans'
-				selectedValue={allergens.withoutCrusteceans}
+				selectedValue={allergens?.withoutCrusteceans ?? '0'}
 				setValue={(newValue) => { setAllergenSelection({ 'withoutCrusteceans': newValue }) }}
 			/>
 			<FoodPrefItem
 				title='Without Sulphur dioxide and sulphites'
-				selectedValue={allergens.withoutSulpharDioxideNdSulphites}
+				selectedValue={allergens?.withoutSulpharDioxideNdSulphites ?? '0'}
 				setValue={(newValue) => { setAllergenSelection({ 'withoutSulpharDioxideNdSulphites': newValue }) }}
 			/>
 		</FoodPrefAccordianItem>
