@@ -57,9 +57,9 @@ const Settings = () => {
 							<List.Subheader>Preferences</List.Subheader>
 							<Divider bold />
 							<TouchableOpacity onPress={() => {
-								router.push('/food-prefs');
+								router.push('/user-food-prefs');
 							}}>
-								<List.Item title="Dietary Preferences" description="Choose what information about food matters most to you" left={() => <List.Icon icon="food-variant" />} />
+								<List.Item title="Food Preferences" description="Choose what information about food matters most to you" left={() => <List.Icon icon="food-variant" />} />
 							</TouchableOpacity>
 							{/* TODO: Make this work */}
 							{/* <TouchableOpacity onPress={() => console.log('show update theme modal')}>
