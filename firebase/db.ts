@@ -1,9 +1,9 @@
+import moment from 'moment';
 import { User } from 'firebase/auth';
 import { FIREBASE_DB } from './FBConfig';
 import { updateUserProfile } from './auth';
-import { setDoc, doc, updateDoc, addDoc, collection, getDoc, increment } from 'firebase/firestore';
+import { setDoc, doc, updateDoc, getDoc, increment } from 'firebase/firestore';
 import { FB_USER_COLLECTION_STRING, NOT_FOUND_PRODUCTS_STRING } from '../constants';
-import moment from 'moment';
 
 export const createUserInformation = async (userInfo: User) => {
 	try {
@@ -11,6 +11,7 @@ export const createUserInformation = async (userInfo: User) => {
 			name: userInfo.displayName,
 			email: userInfo.email,
 			recentScans: {},
+			foodPrefs: []
 			// foodPrefs: {
 			// 	allergens: {
 			// 		withoutGluten: '0',
@@ -45,7 +46,6 @@ export const createUserInformation = async (userInfo: User) => {
 			// 		noOrFewAdditives: '0'
 			// 	}
 			// }
-			foodPrefs: []
 		});
 	} catch (err) {
 		console.log('Error in firebase/db/createUserInformation: ', err);

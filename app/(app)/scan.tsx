@@ -47,6 +47,7 @@ const Scan = () => {
 		const recentScanPayload = {} as any;
 		recentScanPayload[barcode] = {
 			barcode: barcode,
+			ingredients: prod.ingredients_tags,
 			lastScanned: moment().utc().toISOString(),
 			img: prod.mainImg.image_front_thumb_url,
 			name: prod.title

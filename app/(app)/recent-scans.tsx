@@ -79,6 +79,8 @@ const RecentScans = () => {
 								}}
 							>
 								<RecentScanCard
+									ingredients={scannedItem.ingredients}
+									userFoodPrefs={fbUser.foodPrefs}
 									title={scannedItem.name}
 									barcode={scannedItem.barcode}
 									lastScanned={scannedItem.lastScanned}

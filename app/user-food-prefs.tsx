@@ -120,6 +120,7 @@ const UserFoodPrefs = () => {
 									onPress={() => handleCheckboxSelect(id)} />)
 						})}
 					</List.Section>
+					<Text>* These selections acts as "AND" and not as "OR".</Text>
 				</View>
 			</ScrollView>
 			<Portal>
