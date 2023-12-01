@@ -120,7 +120,7 @@ const UserFoodPrefs = () => {
 									onPress={() => handleCheckboxSelect(id)} />)
 						})}
 					</List.Section>
-					<Text>* These selections acts as "AND" and not as "OR".</Text>
+					<Text>* These selections acts as "OR" and not as "AND", meaning, if anyone of the selected item is present in the food ingredients list, the app would mark it as "Does not match" preferences.</Text>
 				</View>
 			</ScrollView>
 			<Portal>

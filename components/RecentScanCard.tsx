@@ -68,13 +68,15 @@ const RecentScanCard = ({
 							<Text style={{ marginBottom: 5, fontSize: 16 }} numberOfLines={1}>{title}</Text>
 							<Text style={{ marginBottom: 6, fontSize: 12 }}>{getTimestring(lastScanned)}</Text>
 						</View>
-						<Chip
-							compact
-							textStyle={{ fontSize: 12 }}
-							icon={() => (
-								<Icon source="circle" size={16} color={getProductMatchState().color} />
-							)}
-						>{getProductMatchState().state}</Chip>
+						<View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'flex-start' }}>
+							<Chip
+								compact
+								textStyle={{ fontSize: 12 }}
+								icon={() => (
+									<Icon source="circle" size={16} color={getProductMatchState().color} />
+								)}
+							>{getProductMatchState().state}</Chip>
+						</View>
 					</View>
 				</View>
 			</TouchableOpacity>
