@@ -12,6 +12,8 @@ import ProductNutriments from './ProductScanComps/ProductNutriments';
 import ProductIngredients from './ProductScanComps/ProductIngredients';
 import BottomSheet, { BottomSheetScrollView } from '@gorhom/bottom-sheet';
 import { Button, Card, Chip, Divider, Modal, Portal, Text as RNPText, useTheme } from 'react-native-paper';
+import { useUser } from '../context/UserContext';
+import { VEG_STATUS } from '../utils';
 
 const INGREDIENT_TAG_ICONS_MAP = {
 	'palm': 'palm-tree',
@@ -27,6 +29,7 @@ interface ScannedItemInfoSheetProps extends PropsWithChildren {
 const ScannedItemInfoSheet = ({
 	product
 }: ScannedItemInfoSheetProps) => {
+	const { fbUser } = useUser();
 	const theme = useTheme();
 	// ref
 	const bottomSheetRef = React.useRef<BottomSheet>(null);
@@ -42,6 +45,39 @@ const ScannedItemInfoSheet = ({
 			}, 1000);
 		}
 	}, [product]);
+
+	const getVegStatusString = (vegAnalysisStatus: string): VEG_STATUS => {
+		const trimmedString = vegAnalysisStatus.replace('en:', '');
+
+		if (trimmedString.toLowerCase() === 'non-vegetarian') {
+			return VEG_STATUS.NON_VEG;
+		} else if (trimmedString.toLowerCase() === 'vegetarian') {
+			return VEG_STATUS.VEG;
+		} else {
+			return VEG_STATUS.UNKNOWN;
+		}
+	};
+
+	const getVegStatus = () => {
+		return (
+			(product && product.ingredients_analysis_tags && product?.ingredients_analysis_tags.length) ?
+				getVegStatusString(product.ingredients_analysis_tags[2]) :
+				utils.VEG_STATUS.UNKNOWN
+		);
+	};
+
+	const getProductMatchState = (): { state: string, color: string } => {
+		let stateToConvert = utils.PRODUCT_MATCH_STATE.UNKNOWN_MATCH;
+
+		if (fbUser?.foodPrefs) {
+			stateToConvert = utils.matchProductToPreferences(product?.ingredients_tags ?? [], getVegStatus(), fbUser.foodPrefs);
+		}
+
+		return {
+			state: utils.getHumanReadableProductMatchStr(stateToConvert),
+			color: utils.getStateColor(stateToConvert)
+		};
+	};
 
 	return (
 		<>
@@ -62,7 +98,7 @@ const ScannedItemInfoSheet = ({
 					>
 						{product && (
 							<BottomSheetScrollView stickyHeaderHiddenOnScroll style={{ marginBottom: 30 }}>
-								<ProductInfoCard product={product} />
+								<ProductInfoCard product={product} productMatchState={getProductMatchState()} />
 
 								{Object.keys(product.nutrient_levels).length > 0 && (
 									<HealthCard nutrientLevels={product.nutrient_levels} nutriments={product.nutriments} />

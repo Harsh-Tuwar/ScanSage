@@ -60,7 +60,7 @@ const Scan = () => {
 		recentScanPayload[barcode] = {
 			barcode: barcode,
 			ingredients: prod.ingredients_tags,
-			vegStatus: prod.ingredients_analysis_tags ? getVegStatus(prod.ingredients_analysis_tags[2]) : VEG_STATUS.UNKNOWN,
+			vegStatus: (prod.ingredients_analysis_tags && prod.ingredients_analysis_tags.length > 1) ? getVegStatus(prod.ingredients_analysis_tags[2]) : VEG_STATUS.UNKNOWN,
 			lastScanned: moment().utc().toISOString(),
 			img: prod.mainImg.image_front_thumb_url,
 			name: prod.title

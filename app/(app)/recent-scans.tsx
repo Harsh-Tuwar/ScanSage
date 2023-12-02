@@ -42,7 +42,7 @@ const RecentScans = () => {
 		setRefreshing(true);
 
 		// method to refresh recent scans
-		await refetchFbUserData(user?.uid ?? '', fbUser?.foodPrefs ?? {});
+		await refetchFbUserData(user?.uid ?? '', fbUser?.foodPrefs ?? []);
 
 		setRefreshing(false);
 	}, []);

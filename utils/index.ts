@@ -95,7 +95,7 @@ export const matchProductToPreferences = (ingredients: string[], vegStatus: VEG_
 export const getStateColor = (state: PRODUCT_MATCH_STATE) => {
 	switch (state) {
 		case PRODUCT_MATCH_STATE.GOOD_MATCH:
-			return 'green';
+			return 'lightgreen';
 		
 		case PRODUCT_MATCH_STATE.DOES_NOT_MATCH:
 			return 'red';
