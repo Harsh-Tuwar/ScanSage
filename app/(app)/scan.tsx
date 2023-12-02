@@ -11,12 +11,12 @@ import ScannedItemInfoSheet from '../../components/ScannedItemInfoSheet';
 import BarcodeScannerOverlay from '../../components/BarcodeScannerOverlay';
 import { Button, Modal, Portal, useTheme, Text } from 'react-native-paper';
 import moment from 'moment';
+import { VEG_STATUS } from '../../utils';
 
 enum CAMERA_FACING_ENUM {
 	FRONT = 1,
 	BACK = 2
 };
-
 
 const Scan = () => {
 	const theme = useTheme();
@@ -37,6 +37,18 @@ const Scan = () => {
 		getBarCodeScannerPermissions();
 	}, []);
 
+	const getVegStatus = (vegAnalysisStatus: string): VEG_STATUS => {
+		const trimmedString = vegAnalysisStatus.replace('en:', '');
+
+		if (trimmedString.toLowerCase() === 'non-vegetarian') {
+			return VEG_STATUS.NON_VEG;
+		} else if (trimmedString.toLowerCase() === 'vegetarian') {
+			return VEG_STATUS.VEG;
+		} else {
+			return VEG_STATUS.UNKNOWN;
+		}
+	};
+
 	const handleBarCodeScanned = async ({ type, data: barcode }: any) => {
 		setScanned(true);
 		setFetchingData(true);
@@ -48,6 +60,7 @@ const Scan = () => {
 		recentScanPayload[barcode] = {
 			barcode: barcode,
 			ingredients: prod.ingredients_tags,
+			vegStatus: prod.ingredients_analysis_tags ? getVegStatus(prod.ingredients_analysis_tags[2]) : VEG_STATUS.UNKNOWN,
 			lastScanned: moment().utc().toISOString(),
 			img: prod.mainImg.image_front_thumb_url,
 			name: prod.title

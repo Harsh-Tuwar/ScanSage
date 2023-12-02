@@ -80,14 +80,14 @@ const ScannedItemInfoSheet = ({
 											<RNPText variant="titleMedium">🧐 Ingredients Analysis</RNPText>
 											<Divider style={{ marginVertical: 10 }} bold />
 											<View style={{ flex: 1, flexDirection: 'row', flexWrap: 'wrap' }}>
-												{product.ingredients_analysis_tags.map((tag) => {
+												{product.ingredients_analysis_tags.map((tag, index) => {
 													const tagString = tag.split(':')[1].replaceAll('-', ' ');
 													const tagIcon = INGREDIENT_TAG_ICONS_MAP[tagString.split(' ')[0] as keyof typeof INGREDIENT_TAG_ICONS_MAP] as any;
 													const finalizedTagString = utils.uppercaseFirstLetter(tagString);
 
 													return (
 														<Chip
-															key={tag}
+															key={`${tag}-${index}`}
 															icon={() => <MaterialCommunityIcons name={tagIcon} size={24} />}
 															compact
 															style={helpers.m5}

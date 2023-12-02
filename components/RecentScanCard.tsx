@@ -13,6 +13,7 @@ interface RecentScanCardProps extends PropsWithChildren {
 	title: string;
 	lastScanned: string;
 	ingredients: string[];
+	vegStatus: utils.VEG_STATUS,
 	onProdSelect: (barcode: string) => void;
 	userFoodPrefs: number[];
 }
@@ -23,6 +24,7 @@ const RecentScanCard = ({
 	title,
 	lastScanned,
 	onProdSelect,
+	vegStatus,
 	ingredients,
 	userFoodPrefs,
 }: RecentScanCardProps) => {
@@ -37,7 +39,7 @@ const RecentScanCard = ({
 		let stateToConvert = utils.PRODUCT_MATCH_STATE.UNKNOWN_MATCH;
 
 		if (userFoodPrefs.length) {
-			stateToConvert = utils.matchProductToPreferences(ingredients, userFoodPrefs);
+			stateToConvert = utils.matchProductToPreferences(ingredients, vegStatus, userFoodPrefs);
 		}
 
 		return {

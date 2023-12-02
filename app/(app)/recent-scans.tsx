@@ -1,20 +1,20 @@
-import React, { useState } from 'react';
-import { SCREEN_HEIGHT, general, helpers } from '../../styles';
-import PageTitle from '../../components/PageTitle';
-import { useUser } from '../../context/UserContext';
-import { ScrollView } from 'react-native-gesture-handler';
-import RecentScanCard from '../../components/RecentScanCard';
-import { SafeAreaView } from 'react-native-safe-area-context';
-import Swipeable from 'react-native-gesture-handler/Swipeable'
+import { Button, Modal, Portal, Text, useTheme } from 'react-native-paper';
 import { FoodFactsProduct } from '../../api/api-types';
+import { refetchFbUserData, updateRecentScans } from '../../firebase/db';
+import { SafeAreaView } from 'react-native-safe-area-context';
+import { SCREEN_HEIGHT, general, helpers } from '../../styles';
+import { ScrollView } from 'react-native-gesture-handler';
+import { sortHelpers } from '../../utils';
+import { useUser } from '../../context/UserContext';
+import { View, RefreshControl } from 'react-native';
 import * as API from '../../api/openFoodFactsService';
 import CenterLoader from '../../components/CenterLoader';
-import ScannedItemInfoSheet from '../../components/ScannedItemInfoSheet';
-import { sortHelpers } from '../../utils';
-import { Button, Modal, Portal, Text, useTheme } from 'react-native-paper';
+import PageTitle from '../../components/PageTitle';
+import React, { useState } from 'react';
+import RecentScanCard from '../../components/RecentScanCard';
 import RenderRight from '../../components/AnimatedRightButton';
-import { refetchFbUserData, updateRecentScans } from '../../firebase/db';
-import { View, RefreshControl } from 'react-native';
+import ScannedItemInfoSheet from '../../components/ScannedItemInfoSheet';
+import Swipeable from 'react-native-gesture-handler/Swipeable';
 
 const RecentScans = () => {
 	const theme = useTheme();
@@ -52,7 +52,7 @@ const RecentScans = () => {
 			<SafeAreaView style={{ ...helpers.p10, backgroundColor: theme.colors.background }}>
 				<PageTitle>Recent Scans</PageTitle>
 				<ScrollView
-					style={{ ...helpers.mb20, height: SCREEN_HEIGHT }}
+					style={{ ...helpers.mb20, height: SCREEN_HEIGHT - 180 }}
 					refreshControl={<RefreshControl refreshing={refreshing} onRefresh={onRefresh} />}
 				>
 					{fbUser?.recentScans && (Object.values(fbUser.recentScans).length > 0 ? Object.values(fbUser.recentScans).sort(sortHelpers.last_scanned_sort).map((scannedItem: any) => {
@@ -79,6 +79,7 @@ const RecentScans = () => {
 								}}
 							>
 								<RecentScanCard
+									vegStatus={scannedItem.vegStatus}
 									ingredients={scannedItem.ingredients}
 									userFoodPrefs={fbUser.foodPrefs}
 									title={scannedItem.name}

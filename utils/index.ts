@@ -11,7 +11,13 @@ export enum PRODUCT_MATCH_STATE {
 	GOOD_MATCH = 1,
 	DOES_NOT_MATCH = 2,
 	UNKNOWN_MATCH = 3,
-}
+};
+
+export enum VEG_STATUS {
+	VEG = 1,
+	NON_VEG = 2,
+	UNKNOWN = 3
+};
 
 export const sortHelpers = {
 	last_scanned_sort: (a: any, b: any) => new Date(b.lastScanned).getTime() - new Date(a.lastScanned).getTime()
@@ -49,8 +55,9 @@ const hasPartialMatch = (ingredients: string[], prefStrings: string[]) => {
 	return false; // No partial match found
 };
 
-export const matchProductToPreferences = (ingredients: string[], preferences: number[]): PRODUCT_MATCH_STATE => {
+export const matchProductToPreferences = (ingredients: string[], vegStatus: VEG_STATUS, preferences: number[]): PRODUCT_MATCH_STATE => {
 	const stringsToMatch: string[] = [];
+	let onlyVeg = false;
 
 	if (ingredients.length === 0) {
 		return PRODUCT_MATCH_STATE.UNKNOWN_MATCH;
@@ -58,17 +65,17 @@ export const matchProductToPreferences = (ingredients: string[], preferences: nu
 
 	preferences.forEach((prefItem) => {
 		if (prefItem === FOOD_EXCLUSION_IDS.ID_NO_ONION) {
-			stringsToMatch.push('onion');
+			stringsToMatch.push('onion'); // done
 		} else if (prefItem === FOOD_EXCLUSION_IDS.ID_NO_POTATOES) {
-			stringsToMatch.push('potato');
+			stringsToMatch.push('potato'); // done
 		} else if (prefItem === FOOD_EXCLUSION_IDS.ID_NO_GARLIC) {
-			stringsToMatch.push('garlic');
+			stringsToMatch.push('garlic'); // done
 		} else if (prefItem === FOOD_EXCLUSION_IDS.ID_NO_FISH) {
-			stringsToMatch.push('fish');
+			stringsToMatch.push('fish'); // done
 		} else if (prefItem === FOOD_EXCLUSION_IDS.ID_NO_MEAT) {
-			stringsToMatch.push('meat');
+			onlyVeg = true;
 		} else if (prefItem === FOOD_EXCLUSION_IDS.ID_NO_EGGS) {
-			stringsToMatch.push('eggs');
+			stringsToMatch.push('egg'); // done
 		}
 	});
 
@@ -77,7 +84,11 @@ export const matchProductToPreferences = (ingredients: string[], preferences: nu
 	if (hasMatch) {
 		return PRODUCT_MATCH_STATE.DOES_NOT_MATCH;
 	} else {
-		return PRODUCT_MATCH_STATE.GOOD_MATCH;
+		if (onlyVeg) {
+			return vegStatus === VEG_STATUS.VEG ? PRODUCT_MATCH_STATE.GOOD_MATCH : PRODUCT_MATCH_STATE.DOES_NOT_MATCH; 
+		} else {
+			return PRODUCT_MATCH_STATE.GOOD_MATCH;
+		}
 	}
 }
 

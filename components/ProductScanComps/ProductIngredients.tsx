@@ -35,7 +35,7 @@ const ProductIngredients = ({
 				</View>
 				<View style={{ flex: 1, flexDirection: 'row', flexWrap: 'wrap', ...helpers.mx5 }}>
 					{ingredients.map((ings, index) => {
-						return <RNPText key={ings.id}>{utils.uppercaseFirstLetter(ings.text)}{ingredients.length - 1 === index ? '' : ', '}</RNPText>
+						return <RNPText key={`${ings.id}-${index}`}>{utils.uppercaseFirstLetter(ings.text)}{ingredients.length - 1 === index ? '' : ', '}</RNPText>
 					})}
 				</View>
 				{allergens.length > 0 && (
