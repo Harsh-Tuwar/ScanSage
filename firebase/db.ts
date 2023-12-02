@@ -2,8 +2,8 @@ import moment from 'moment';
 import { User } from 'firebase/auth';
 import { FIREBASE_DB } from './FBConfig';
 import { updateUserProfile } from './auth';
-import { setDoc, doc, updateDoc, getDoc, increment } from 'firebase/firestore';
-import { FB_USER_COLLECTION_STRING, NOT_FOUND_PRODUCTS_STRING } from '../constants';
+import { setDoc, doc, updateDoc, getDoc, increment, addDoc, collection } from 'firebase/firestore';
+import { FB_FEATURE_REQUEST_COLLECTION_STRING, FB_USER_COLLECTION_STRING, NOT_FOUND_PRODUCTS_STRING } from '../constants';
 
 export const createUserInformation = async (userInfo: User) => {
 	try {
@@ -79,6 +79,14 @@ export const updateRecentScans = async (userId: string, recentScans: any) => {
 		});
 	} catch (err) {
 		console.log('Error in firebase/db/modifyRecentScans: ', err);
+	}
+};
+
+export const submitNewFeatureRequest = async (data: any) => {
+	try {
+		await addDoc(collection(FIREBASE_DB, FB_FEATURE_REQUEST_COLLECTION_STRING), data);
+	} catch (err) {
+		console.log('Error in firebase/db/submitNewFeatureRequest: ', err);	
 	}
 };
 

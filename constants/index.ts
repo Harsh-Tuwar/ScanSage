@@ -4,5 +4,6 @@ export const USDA_FOOD_CENTRAL_API_KE_PARAM = 'api_key=5APKkhqM92krVp3jIEuMhGnBK
 
 export const FB_USER_COLLECTION_STRING = 'users';
 export const NOT_FOUND_PRODUCTS_STRING = '404-products';
+export const FB_FEATURE_REQUEST_COLLECTION_STRING = 'feature-requests';
 
 export const SNACK_DURATION = 3000;
