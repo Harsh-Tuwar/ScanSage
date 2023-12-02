@@ -104,7 +104,7 @@ export const getIngreAnalysisModalContent = (
 			if (selectedModalTag.includes('vegetarian')) {
 				modalContentObj.title = '🥦 Vegeterian';
 
-				modalContentObj.content = `No non-vegetarian ingredients detected`;
+				modalContentObj.content = `No vegetarian ingredients detected`;
 
 				if (product.unknownIngredients.unknownContentVeg.length) {
 					modalContentObj.unrecognizedStr = `Unrecognized ingredients: ${product.unknownIngredients.unknownContentVeg.map((item) => {

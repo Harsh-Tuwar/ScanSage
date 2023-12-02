@@ -16,7 +16,7 @@ const StackLayout = () => {
 	// 		? CustomDarkTheme
 	// 		: CustomLightTheme;
 	const paperTheme = CustomDarkTheme;
-	
+
 	const [fontsLoaded, fontError] = useFonts({
 		'PlaypenSans-Bold': require('../assets/fonts/PlaypenSans-Bold.ttf'),
 		'PlaypenSans-ExtraBold': require('../assets/fonts/PlaypenSans-ExtraBold.ttf'),
@@ -55,7 +55,7 @@ const StackLayout = () => {
 	return (
 		<UserProvider>
 			<PaperProvider theme={{ ...paperTheme, fonts }}>
-				<Stack screenOptions={{ animation: 'fade', headerShown: false, statusBarColor: 'black' }}  initialRouteName='index'>
+				<Stack screenOptions={{ animation: 'fade', headerShown: false, statusBarColor: 'black' }} initialRouteName='index'>
 					<Stack.Screen name="index" />
 					<Stack.Screen name="food-prefs" />
 					<Stack.Screen name="register" />
