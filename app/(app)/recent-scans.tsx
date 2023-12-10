@@ -15,6 +15,7 @@ import RecentScanCard from '../../components/RecentScanCard';
 import RenderRight from '../../components/AnimatedRightButton';
 import ScannedItemInfoSheet from '../../components/ScannedItemInfoSheet';
 import Swipeable from 'react-native-gesture-handler/Swipeable';
+import { BannerAd, BannerAdSize } from 'react-native-google-mobile-ads';
 
 const RecentScans = () => {
 	const theme = useTheme();
@@ -55,40 +56,53 @@ const RecentScans = () => {
 					style={{ ...helpers.mb20, height: SCREEN_HEIGHT - 180 }}
 					refreshControl={<RefreshControl refreshing={refreshing} onRefresh={onRefresh} />}
 				>
-					{fbUser?.recentScans && (Object.values(fbUser.recentScans).length > 0 ? Object.values(fbUser.recentScans).sort(sortHelpers.last_scanned_sort).map((scannedItem: any) => {
+					{fbUser?.recentScans && (Object.values(fbUser.recentScans).length > 0 ? Object.values(fbUser.recentScans).sort(sortHelpers.last_scanned_sort).map((scannedItem: any, index) => {
 						return (
-							<Swipeable
-								key={scannedItem.name}
-								useNativeAnimations
-								overshootLeft={false}
-								overshootRight={false}
-								renderRightActions={RenderRight}
-								onSwipeableWillOpen={async () => {
-									setFetchingData(true);
-									const updatedData = { ...fbUser };
+							<React.Fragment key={scannedItem.name}>
+								{index % 3 === 1 && <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'center' }}>
+									<BannerAd
+										size={BannerAdSize.ANCHORED_ADAPTIVE_BANNER}
+										unitId="ca-app-pub-9000006057030614/4846580106"
+										onAdLoaded={() => {
+											console.log('Advert loaded');
+										}}
+										onAdFailedToLoad={error => {
+											console.error('Advert failed to load: ', error);
+										}}
+									/>
+								</View>}
+								<Swipeable
+									useNativeAnimations
+									overshootLeft={false}
+									overshootRight={false}
+									renderRightActions={RenderRight}
+									onSwipeableWillOpen={async () => {
+										setFetchingData(true);
+										const updatedData = { ...fbUser };
 
-									delete updatedData.recentScans[scannedItem.barcode];
+										delete updatedData.recentScans[scannedItem.barcode];
 
-									if (user?.uid) {
-										await updateRecentScans(user.uid, updatedData.recentScans);
-									} else {
-										alert('Error deleting entry!');
-									}
+										if (user?.uid) {
+											await updateRecentScans(user.uid, updatedData.recentScans);
+										} else {
+											alert('Error deleting entry!');
+										}
 
-									setFetchingData(false);
-								}}
-							>
-								<RecentScanCard
-									vegStatus={scannedItem.vegStatus}
-									ingredients={scannedItem.ingredients}
-									userFoodPrefs={fbUser.foodPrefs}
-									title={scannedItem.name}
-									barcode={scannedItem.barcode}
-									lastScanned={scannedItem.lastScanned}
-									imgUrl={scannedItem.img}
-									onProdSelect={handleProdSelect}
-								></RecentScanCard>
-							</Swipeable>
+										setFetchingData(false);
+									}}
+								>
+									<RecentScanCard
+										vegStatus={scannedItem.vegStatus}
+										ingredients={scannedItem.ingredients}
+										userFoodPrefs={fbUser.foodPrefs}
+										title={scannedItem.name}
+										barcode={scannedItem.barcode}
+										lastScanned={scannedItem.lastScanned}
+										imgUrl={scannedItem.img}
+										onProdSelect={handleProdSelect}
+									></RecentScanCard>
+								</Swipeable>
+							</React.Fragment>
 						);
 					}) : <View style={{ ...general.center, alignItems: 'center', height: SCREEN_HEIGHT - 150 }}><Text>Use the 'Scanner tab' to start your scanning journie!</Text></View>)}
 				</ScrollView>

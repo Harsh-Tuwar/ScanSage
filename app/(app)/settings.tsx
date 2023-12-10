@@ -13,6 +13,7 @@ import { useEffect, useState } from 'react';
 import CenterLoader from '../../components/CenterLoader';
 import * as db from '../../firebase/db';
 import moment from 'moment';
+import { BannerAd, BannerAdSize } from 'react-native-google-mobile-ads';
 
 enum MODAL_TYPE {
 	NONE = 0,
@@ -116,6 +117,18 @@ const Settings = () => {
 								<List.Item title="Logout" description="Sorry to see you go 🥲" left={() => <List.Icon icon="logout" />} />
 							</TouchableOpacity>
 						</List.Section>
+						<View style={{ flex: 1, flexDirection: 'row', justifyContent: 'center' }}>
+							<BannerAd
+								size={BannerAdSize.ANCHORED_ADAPTIVE_BANNER}
+								unitId="ca-app-pub-9000006057030614/4846580106"
+								onAdLoaded={() => {
+									console.log('Advert loaded');
+								}}
+								onAdFailedToLoad={error => {
+									console.error('Advert failed to load: ', error);
+								}}
+							/>
+						</View>
 						<View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', margin: 30, marginTop: 40 }}>
 							<Text variant='bodySmall'>V. {packageJson.version}</Text>
 						</View>
