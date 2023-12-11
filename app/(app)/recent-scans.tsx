@@ -17,27 +17,17 @@ import ScannedItemInfoSheet from '../../components/ScannedItemInfoSheet';
 import Swipeable from 'react-native-gesture-handler/Swipeable';
 import { BannerAd, BannerAdSize } from 'react-native-google-mobile-ads';
 import { BANNER_AD_UNIT_ID } from '../../constants';
+import { router } from 'expo-router';
 
 const RecentScans = () => {
 	const theme = useTheme();
 	const [refreshing, setRefreshing] = React.useState(false);
 	const { fbUser, user} = useUser();
 	const [fetchingData, setFetchingData] = useState(false);
-	const [prod, setProd] = useState<null | FoodFactsProduct>(null);
 	const [showModal, setShowModal] = useState(false);
 
 	const handleProdSelect = async (barcode: string) => {
-		setFetchingData(true);
-
-		const prodData = await API.getProductData(barcode);
-
-		if (prodData.title === '') {
-			setShowModal(true);
-		}
-
-		setProd(prodData);
-
-		setFetchingData(false);
+		router.push(`/product/${barcode}`);
 	};
 
 	const onRefresh = React.useCallback(async () => {
@@ -105,7 +95,7 @@ const RecentScans = () => {
 						);
 					}) : <View style={{ ...general.center, alignItems: 'center', height: SCREEN_HEIGHT - 150 }}><Text>Use the 'Scanner tab' to start your scanning journie!</Text></View>)}
 				</ScrollView>
-				{prod?.title && <ScannedItemInfoSheet product={prod} />}
+				{/* {prod?.title && <ScannedItemInfoSheet product={prod} />} */}
 				<Portal>
 					<Modal
 						visible={showModal}

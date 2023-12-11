@@ -62,6 +62,7 @@ const StackLayout = () => {
 					<Stack.Screen name="index" />
 					<Stack.Screen name="user-food-prefs" />
 					<Stack.Screen name="register" />
+					<Stack.Screen name="product/[barcode]" />
 					<Stack.Screen
 						name="modify-user-modal"
 						options={{
