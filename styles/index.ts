@@ -42,6 +42,12 @@ export const helpers = StyleSheet.create({
 	m10: {
 		margin: 10
 	},
+	m20: {
+		margin: 20,
+	},
+	m15: {
+		margin: 15,
+	},
 	mx5: {
 		marginVertical: 5
 	},

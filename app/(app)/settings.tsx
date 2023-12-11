@@ -1,19 +1,20 @@
-import { User, signOut } from 'firebase/auth';
-import { List, Divider, useTheme, Portal, Text, Modal, TextInput, Button, Snackbar } from 'react-native-paper';
-import { FIREBASE_AUTH } from '../../firebase/FBConfig';
-import { router } from 'expo-router';
-import { SCREEN_HEIGHT, helpers } from '../../styles';
-import { useUser } from '../../context/UserContext';
-import { SafeAreaView } from 'react-native-safe-area-context';
-import PageTitle from '../../components/PageTitle';
-import { ScrollView } from 'react-native-gesture-handler';
-import { TouchableOpacity, View } from 'react-native';
-import packageJson from '../../package.json';
-import { useEffect, useState } from 'react';
-import CenterLoader from '../../components/CenterLoader';
-import * as db from '../../firebase/db';
 import moment from 'moment';
+import { router } from 'expo-router';
+import * as db from '../../firebase/db';
+import { useEffect, useState } from 'react';
+import packageJson from '../../package.json';
+import { User, signOut } from 'firebase/auth';
+import PageTitle from '../../components/PageTitle';
+import { useUser } from '../../context/UserContext';
+import { BANNER_AD_UNIT_ID } from '../../constants';
+import { SCREEN_HEIGHT, helpers } from '../../styles';
+import { TouchableOpacity, View } from 'react-native';
+import { FIREBASE_AUTH } from '../../firebase/FBConfig';
+import CenterLoader from '../../components/CenterLoader';
+import { ScrollView } from 'react-native-gesture-handler';
+import { SafeAreaView } from 'react-native-safe-area-context';
 import { BannerAd, BannerAdSize } from 'react-native-google-mobile-ads';
+import { List, Divider, useTheme, Portal, Text, Modal, TextInput, Button, Snackbar } from 'react-native-paper';
 
 enum MODAL_TYPE {
 	NONE = 0,
@@ -84,9 +85,19 @@ const Settings = () => {
 	return (
 		<SafeAreaView style={{ ...helpers.p10, backgroundColor: theme.colors.background }}>
 			<PageTitle>Settings</PageTitle>
-			<ScrollView style={{ ...helpers.mb20, height: SCREEN_HEIGHT }}>
+			<ScrollView style={{ ...helpers.mb20, height: SCREEN_HEIGHT - 180 }}>
 				{loadingAction ? <CenterLoader /> : (
 					<>
+						<View style={{ flex: 1, flexDirection: 'row', justifyContent: 'center' }}>
+							<BannerAd
+								size={BannerAdSize.ANCHORED_ADAPTIVE_BANNER}
+								unitId={BANNER_AD_UNIT_ID}
+								onAdLoaded={() => {}}
+								onAdFailedToLoad={error => {
+									console.error('Advert failed to load: ', error);
+								}}
+							/>
+						</View>
 						<List.Section>
 							<List.Subheader>Profile</List.Subheader>
 							<Divider bold />
@@ -117,18 +128,6 @@ const Settings = () => {
 								<List.Item title="Logout" description="Sorry to see you go 🥲" left={() => <List.Icon icon="logout" />} />
 							</TouchableOpacity>
 						</List.Section>
-						<View style={{ flex: 1, flexDirection: 'row', justifyContent: 'center' }}>
-							<BannerAd
-								size={BannerAdSize.ANCHORED_ADAPTIVE_BANNER}
-								unitId="ca-app-pub-9000006057030614/4846580106"
-								onAdLoaded={() => {
-									console.log('Advert loaded');
-								}}
-								onAdFailedToLoad={error => {
-									console.error('Advert failed to load: ', error);
-								}}
-							/>
-						</View>
 						<View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', margin: 30, marginTop: 40 }}>
 							<Text variant='bodySmall'>V. {packageJson.version}</Text>
 						</View>

@@ -16,6 +16,7 @@ import RenderRight from '../../components/AnimatedRightButton';
 import ScannedItemInfoSheet from '../../components/ScannedItemInfoSheet';
 import Swipeable from 'react-native-gesture-handler/Swipeable';
 import { BannerAd, BannerAdSize } from 'react-native-google-mobile-ads';
+import { BANNER_AD_UNIT_ID } from '../../constants';
 
 const RecentScans = () => {
 	const theme = useTheme();
@@ -62,10 +63,8 @@ const RecentScans = () => {
 								{index % 3 === 1 && <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'center' }}>
 									<BannerAd
 										size={BannerAdSize.ANCHORED_ADAPTIVE_BANNER}
-										unitId="ca-app-pub-9000006057030614/4846580106"
-										onAdLoaded={() => {
-											console.log('Advert loaded');
-										}}
+										unitId={BANNER_AD_UNIT_ID}
+										onAdLoaded={() => {}}
 										onAdFailedToLoad={error => {
 											console.error('Advert failed to load: ', error);
 										}}

@@ -14,6 +14,8 @@ import BottomSheet, { BottomSheetScrollView } from '@gorhom/bottom-sheet';
 import { Button, Card, Chip, Divider, Modal, Portal, Text as RNPText, useTheme } from 'react-native-paper';
 import { useUser } from '../context/UserContext';
 import { VEG_STATUS } from '../utils';
+import { BannerAd, BannerAdSize } from 'react-native-google-mobile-ads';
+import { BANNER_AD_UNIT_ID } from '../constants';
 
 const INGREDIENT_TAG_ICONS_MAP = {
 	'palm': 'palm-tree',
@@ -111,33 +113,43 @@ const ScannedItemInfoSheet = ({
 
 								{/* Ingredients Analysis */}
 								{product.ingredients_analysis_tags && product.ingredients_analysis_tags.length > 0 && (
-									<Card style={{ margin: 10 }}>
-										<Card.Content>
-											<RNPText variant="titleMedium">🧐 Ingredients Analysis</RNPText>
-											<Divider style={{ marginVertical: 10 }} bold />
-											<View style={{ flex: 1, flexDirection: 'row', flexWrap: 'wrap' }}>
-												{product.ingredients_analysis_tags.map((tag, index) => {
-													const tagString = tag.split(':')[1].replaceAll('-', ' ');
-													const tagIcon = INGREDIENT_TAG_ICONS_MAP[tagString.split(' ')[0] as keyof typeof INGREDIENT_TAG_ICONS_MAP] as any;
-													const finalizedTagString = utils.uppercaseFirstLetter(tagString);
+									<>
+										<Card style={{ margin: 10 }}>
+											<Card.Content>
+												<RNPText variant="titleMedium">🧐 Ingredients Analysis</RNPText>
+												<Divider style={{ marginVertical: 10 }} bold />
+												<View style={{ flex: 1, flexDirection: 'row', flexWrap: 'wrap' }}>
+													{product.ingredients_analysis_tags.map((tag, index) => {
+														const tagString = tag.split(':')[1].replaceAll('-', ' ');
+														const tagIcon = INGREDIENT_TAG_ICONS_MAP[tagString.split(' ')[0] as keyof typeof INGREDIENT_TAG_ICONS_MAP] as any;
+														const finalizedTagString = utils.uppercaseFirstLetter(tagString);
 
-													return (
-														<Chip
-															key={`${tag}-${index}`}
-															icon={() => <MaterialCommunityIcons name={tagIcon} size={24} />}
-															compact
-															style={helpers.m5}
-															onPress={() => {
-																setSelectedModalTag(tag);
-																setShowIngModal(true);
-															}}
-														>{finalizedTagString}</Chip>
-													);
-												})}
-											</View>
-											<RNPText style={helpers.mx10}>The analysis is based solely on the ingredients listed and does not take into account processing methods</RNPText>
-										</Card.Content>
-									</Card>
+														return (
+															<Chip
+																key={`${tag}-${index}`}
+																icon={() => <MaterialCommunityIcons name={tagIcon} size={24} />}
+																compact
+																style={helpers.m5}
+																onPress={() => {
+																	setSelectedModalTag(tag);
+																	setShowIngModal(true);
+																}}
+															>{finalizedTagString}</Chip>
+														);
+													})}
+												</View>
+												<RNPText style={helpers.mx10}>The analysis is based solely on the ingredients listed and does not take into account processing methods</RNPText>
+											</Card.Content>
+										</Card>
+										<BannerAd
+											size={BannerAdSize.ANCHORED_ADAPTIVE_BANNER}
+											unitId={BANNER_AD_UNIT_ID}
+											onAdLoaded={() => { }}
+											onAdFailedToLoad={error => {
+												console.error('Advert failed to load: ', error);
+											}}
+										/>
+									</>
 								)}
 
 								{/* Item Nutriments */}
