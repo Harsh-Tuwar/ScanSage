@@ -4,7 +4,7 @@
     "slug": "ScanSage",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/images/icon.png",
+    "icon": "./assets/images/1024.png",
     "scheme": "myapp",
     "userInterfaceStyle": "automatic",
     "splash": {
@@ -58,5 +58,11 @@
         "projectId": "e4a241b2-cf06-488e-acaf-ae0596c45ef4"
       }
     }
+  },
+  "react-native-google-mobile-ads": {
+    "android_app_id": "ca-app-pub-9000006057030614/4846580106",
+    "ios_app_id": "ca-app-pub-9000006057030614/4846580106",
+    "user_tracking_usage_description": "This identifier will be used to deliver personalized ads to you.",
+    "delay_app_measurement_init": true
   }
 }

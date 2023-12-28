@@ -7,7 +7,10 @@ import * as SplashScreen from 'expo-splash-screen';
 import { useColorScheme } from 'react-native';
 import CustomDarkTheme from '../themes/DarkTheme';
 import CustomLightTheme from '../themes/LightTheme';
+import { useEffect } from 'react';
 SplashScreen.preventAutoHideAsync();
+import mobileAds from 'react-native-google-mobile-ads';
+
 
 const StackLayout = () => {
 	const colorScheme = useColorScheme();
@@ -57,8 +60,9 @@ const StackLayout = () => {
 			<PaperProvider theme={{ ...paperTheme, fonts }}>
 				<Stack screenOptions={{ animation: 'fade', headerShown: false, statusBarColor: 'black' }} initialRouteName='index'>
 					<Stack.Screen name="index" />
-					<Stack.Screen name="food-prefs" />
+					<Stack.Screen name="user-food-prefs" />
 					<Stack.Screen name="register" />
+					<Stack.Screen name="product/[barcode]" />
 					<Stack.Screen
 						name="modify-user-modal"
 						options={{

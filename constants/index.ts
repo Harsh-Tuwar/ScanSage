@@ -2,6 +2,8 @@ export const API_BASE_URL = 'https://world.openfoodfacts.org/api/v0/product';
 export const USDA_FOOD_CENTRAL_API_URL = 'https://api.nal.usda.gov/fdc/v1/foods/search?query=';
 export const USDA_FOOD_CENTRAL_API_KE_PARAM = 'api_key=5APKkhqM92krVp3jIEuMhGnBKyuuxIC89okJmEA0';
 
+export const BANNER_AD_UNIT_ID = "ca-app-pub-9000006057030614/4846580106";
+
 export const FB_USER_COLLECTION_STRING = 'users';
 export const NOT_FOUND_PRODUCTS_STRING = '404-products';
 export const FB_FEATURE_REQUEST_COLLECTION_STRING = 'feature-requests';
