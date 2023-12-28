@@ -57,7 +57,7 @@ const StackLayout = () => {
 			<PaperProvider theme={{ ...paperTheme, fonts }}>
 				<Stack screenOptions={{ animation: 'fade', headerShown: false, statusBarColor: 'black' }} initialRouteName='index'>
 					<Stack.Screen name="index" />
-					<Stack.Screen name="food-prefs" />
+					<Stack.Screen name="user-food-prefs" />
 					<Stack.Screen name="register" />
 					<Stack.Screen
 						name="modify-user-modal"

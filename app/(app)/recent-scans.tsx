@@ -15,6 +15,7 @@ import RecentScanCard from '../../components/RecentScanCard';
 import RenderRight from '../../components/AnimatedRightButton';
 import ScannedItemInfoSheet from '../../components/ScannedItemInfoSheet';
 import Swipeable from 'react-native-gesture-handler/Swipeable';
+import { router } from 'expo-router';
 
 const RecentScans = () => {
 	const theme = useTheme();
@@ -25,17 +26,18 @@ const RecentScans = () => {
 	const [showModal, setShowModal] = useState(false);
 
 	const handleProdSelect = async (barcode: string) => {
-		setFetchingData(true);
+		// setFetchingData(true);
 
-		const prodData = await API.getProductData(barcode);
+		// const prodData = await API.getProductData(barcode);
 
-		if (prodData.title === '') {
-			setShowModal(true);
-		}
+		// if (prodData.title === '') {
+		// 	setShowModal(true);
+		// }
 
-		setProd(prodData);
+		// setProd(prodData);
 
-		setFetchingData(false);
+		// setFetchingData(false);
+		router.push(`/product/${barcode}`);
 	};
 
 	const onRefresh = React.useCallback(async () => {
@@ -52,7 +54,7 @@ const RecentScans = () => {
 			<SafeAreaView style={{ ...helpers.p10, backgroundColor: theme.colors.background }}>
 				<PageTitle>Recent Scans</PageTitle>
 				<ScrollView
-					style={{ ...helpers.mb20, height: SCREEN_HEIGHT - 180 }}
+					style={{ ...helpers.mb20 }}
 					refreshControl={<RefreshControl refreshing={refreshing} onRefresh={onRefresh} />}
 				>
 					{fbUser?.recentScans && (Object.values(fbUser.recentScans).length > 0 ? Object.values(fbUser.recentScans).sort(sortHelpers.last_scanned_sort).map((scannedItem: any) => {
@@ -92,7 +94,7 @@ const RecentScans = () => {
 						);
 					}) : <View style={{ ...general.center, alignItems: 'center', height: SCREEN_HEIGHT - 150 }}><Text>Use the 'Scanner tab' to start your scanning journie!</Text></View>)}
 				</ScrollView>
-				{prod?.title && <ScannedItemInfoSheet product={prod} />}
+				{/* {prod?.title && <ScannedItemInfoSheet product={prod} />} */}
 				<Portal>
 					<Modal
 						visible={showModal}

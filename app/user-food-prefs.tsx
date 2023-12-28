@@ -186,7 +186,7 @@ const UserFoodPrefs = () => {
 const styles = StyleSheet.create({
 	container: {
 		marginHorizontal: 10,
-		height: SCREEN_HEIGHT - 230
+		height: SCREEN_HEIGHT - 190
 	},
 	bottomBarButtonLabel: {
 		fontSize: 16
